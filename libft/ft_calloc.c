@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   calloc.c                                           :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 09:00:42 by shkondo           #+#    #+#             */
-/*   Updated: 2025/04/26 09:05:48 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/04/29 01:03:00 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,9 @@ void	*ft_calloc(size_t nmemb, size_t size)
 		ft_memset(ptr, 0, 1);
 		return (ptr);
 	}
-	else
-	{
-		total_size = nmemb * size;
-		if (total_size / nmemb != size)
-			return (NULL);
-	}
+	if (nmemb > SIZE_MAX / size)
+		return (NULL);
+	total_size = nmemb * size;
 	ptr = (void *)malloc(total_size);
 	if (ptr == NULL)
 		return (NULL);
