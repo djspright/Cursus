@@ -6,7 +6,7 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 06:38:03 by shkondo           #+#    #+#             */
-/*   Updated: 2025/04/25 06:43:39 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/05/04 21:42:12 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 int	ft_isalnum(int c)
 {
 	if (c == EOF)
-		return (false);
+		return (FALSE);
 	if ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z') || (c >= 'a'
 			&& c <= 'z'))
-		return (true);
-	return (false);
+		return (TRUE);
+	return (FALSE);
 }

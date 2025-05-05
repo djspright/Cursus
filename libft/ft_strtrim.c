@@ -6,7 +6,7 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 11:42:58 by shkondo           #+#    #+#             */
-/*   Updated: 2025/04/29 15:04:37 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/05/04 21:51:37 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ int	is_charset(char c, char const *set)
 	while (set[i])
 	{
 		if (c == set[i])
-			return (true);
+			return (TRUE);
 		i++;
 	}
-	return (false);
+	return (FALSE);
 }
 
 char	*ft_strtrim(char const *s1, char const *set)

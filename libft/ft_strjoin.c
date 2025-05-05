@@ -6,7 +6,7 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 07:16:14 by shkondo           #+#    #+#             */
-/*   Updated: 2025/04/26 07:22:57 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/05/04 21:18:08 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,26 @@ size_t	total_len(char const *s1, char const *s2)
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	size_t	i;
-  size_t	j;
-  char	*dst;
+	size_t	j;
+	char	*dst;
 
-  dst = (char *)malloc((total_len(s1, s2) + 1) * sizeof(char));
-  i = 0;
-  while(s1[i])
-    dst[i] = s1[i];
-  j = 0;
-  while(s2[j])
-    dst[i + j] = s2[j];
-  dst[i + j] = '\0';
-  return dst;
+	if (!s1 || !s2)
+		return (NULL);
+	dst = (char *)malloc((total_len(s1, s2) + 1) * sizeof(char));
+	if (!dst)
+		return (NULL);
+	i = 0;
+	while (s1[i])
+	{
+		dst[i] = s1[i];
+		i++;
+	}
+	j = 0;
+	while (s2[j])
+	{
+		dst[i + j] = s2[j];
+		j++;
+	}
+	dst[i + j] = '\0';
+	return (dst);
 }

@@ -6,7 +6,7 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 03:22:51 by shkondo           #+#    #+#             */
-/*   Updated: 2025/04/29 17:05:59 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/05/05 08:10:11 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,13 @@
 void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
 	size_t			i;
-	uint8_t			*d;
-	const uint8_t	*s = (const uint8_t *)src;
+	t_uint8_t		*d;
+	const t_uint8_t	*s = (const t_uint8_t *)src;
 
-	d = (uint8_t *)dst;
+	if (!dst && !src)
+		return (NULL);
+	d = (t_uint8_t *)dst;
+	s = (const t_uint8_t *)src;
 	i = 0;
 	while (i < n)
 	{
@@ -68,4 +71,3 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 // 	free(dst_arr);
 // 	printf("Destination memory is freed.\n");
 // }
-

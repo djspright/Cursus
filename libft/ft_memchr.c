@@ -6,7 +6,7 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 10:02:30 by shkondo           #+#    #+#             */
-/*   Updated: 2025/04/25 10:02:30 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/05/04 22:10:25 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 void	*ft_memchr(const void *s, int c, size_t n)
 {
-	size_t	i;
-	uint8_t	*ptr;
-	uint8_t	uc;
+	size_t		i;
+	t_uint8_t	*ptr;
+	t_uint8_t	uc;
 
 	i = 0;
-	ptr = (uint8_t *)s;
-	uc = (uint8_t)c;
-	while (ptr[i] != '\0' && i < n)
+	ptr = (t_uint8_t *)s;
+	uc = (t_uint8_t)c;
+	while (i < n)
 	{
 		if (ptr[i] == uc)
-			return ((uint8_t *)s);
+			return ((void *)(ptr + i));
 		i++;
 	}
 	return (NULL);

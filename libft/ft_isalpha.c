@@ -6,7 +6,7 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 04:43:40 by shkondo           #+#    #+#             */
-/*   Updated: 2025/04/25 08:17:13 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/05/04 21:42:55 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	ft_isalpha(int c)
 {
-  if (c == EOF)
-    return (false);
-  if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
-    return (true);
-  return (false);
+	if (c == EOF)
+		return (FALSE);
+	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
+		return (TRUE);
+	return (FALSE);
 }

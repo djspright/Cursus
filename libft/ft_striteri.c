@@ -6,7 +6,7 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 13:32:39 by shkondo           #+#    #+#             */
-/*   Updated: 2025/05/04 12:11:17 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/05/04 22:11:25 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 void	ft_striteri(char *s, void (*f)(unsigned int, char *))
 {
-  uint32_t	i;
+	t_uint32_t	i;
 
-  if (!s || !f)
-    return ;
-  i = 0;
-  while (s[i])
-  {
-    f(i, s + i);
-    i++;
-  }
+	if (!s || !f)
+		return ;
+	i = 0;
+	while (s[i])
+	{
+		f(i, s + i);
+		i++;
+	}
 }
 
-// void	to_upper(uint32_t i, char *c)
+// void	to_upper(t_uint32_t i, char *c)
 // {
 // 	(void)i;
 // 	if (*c >= 'a' && *c <= 'z')

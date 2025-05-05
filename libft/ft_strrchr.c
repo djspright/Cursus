@@ -6,7 +6,7 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 12:51:42 by shkondo           #+#    #+#             */
-/*   Updated: 2025/04/29 17:00:03 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/05/04 22:10:25 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,11 @@
 
 char	*ft_strrchr(const char *s, int c)
 {
-	size_t	i;
-	uint8_t	uc;
+	int			i;
+	t_uint8_t	uc;
 
 	i = ft_strlen(s);
-	uc = (uint8_t)c;
-	if (!s)
-		return (NULL);
+	uc = (t_uint8_t)c;
 	while (i >= 0)
 	{
 		if (s[i] == uc)

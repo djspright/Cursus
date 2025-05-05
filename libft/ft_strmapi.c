@@ -6,7 +6,7 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 13:43:39 by shkondo           #+#    #+#             */
-/*   Updated: 2025/05/01 14:13:22 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/05/04 22:11:25 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	uint32_t	i;
+	t_uint32_t	i;
 	char		*dst;
 
 	if (!s)

@@ -6,7 +6,7 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 12:04:59 by shkondo           #+#    #+#             */
-/*   Updated: 2025/04/29 16:49:22 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/05/04 22:10:25 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 char	*ft_strchr(const char *s, int c)
 {
-	uint8_t	uc;
+	t_uint8_t	uc;
 
-	uc = (uint8_t)c;
+	uc = (t_uint8_t)c;
 	if (!s)
 		return (NULL);
 	while (*s)

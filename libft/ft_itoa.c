@@ -6,7 +6,7 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 16:17:23 by shkondo           #+#    #+#             */
-/*   Updated: 2025/04/29 03:24:13 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/05/04 21:15:55 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ char	*ft_itoa(int n)
 	return (dst);
 }
 
-int	main(void)
-{
-	printf("%s\n", ft_itoa(0));
-	printf("%s\n", ft_itoa(-2147483648));
-	return (0);
-}
+// int	main(void)
+// {
+// 	printf("%s\n", ft_itoa(0));
+// 	printf("%s\n", ft_itoa(-2147483648));
+// 	return (0);
+// }

@@ -6,17 +6,17 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 06:46:01 by shkondo           #+#    #+#             */
-/*   Updated: 2025/04/25 06:47:51 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/05/04 21:44:56 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int ft_isascii(int c)
+int	ft_isascii(int c)
 {
-  if(c == EOF)
-    return false;
-  if(c >= 0 && c <= 127)
-    return true;
-  return false;
+	if (c == EOF)
+		return (FALSE);
+	if (c >= 0 && c <= 127)
+		return (TRUE);
+	return (FALSE);
 }

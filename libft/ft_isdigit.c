@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   isdigit.c                                          :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 06:34:26 by shkondo           #+#    #+#             */
-/*   Updated: 2025/04/25 06:35:42 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/05/04 21:42:25 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int ft_isdigit(int c)
+int	ft_isdigit(int c)
 {
-  if(c == EOF)
-    return false;
-  if(c >= '0' && c <= '9')
-    return true;
-  return false;
+	if (c == EOF)
+		return (FALSE);
+	if (c >= '0' && c <= '9')
+		return (TRUE);
+	return (FALSE);
 }

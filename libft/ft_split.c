@@ -6,7 +6,7 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 03:46:37 by shkondo           #+#    #+#             */
-/*   Updated: 2025/04/29 16:33:14 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/05/04 21:17:42 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,27 +40,27 @@ char	**ft_split(char const *s, char c)
 	size_t	i;
 	char	**arr;
 
-  arr = (char **)malloc((count_words(s, c) + 1) * sizeof(char *));
-  if (!s || !arr)
-    return (NULL);
-  i = 0;
-  while (*s)
-  {
-    while (*s && *s == c)
-      s++;
-    if (*s)
-    {
-      if (!ft_strchr(s, c))
-        word_len = ft_strlen(s);
-      else
-        word_len = ft_strchr(s, c) - s;
-      arr[i] = ft_substr(s, 0, word_len);
-      s += word_len;
-      i++;
-    }
-  }
-  arr[i] = NULL;
-  return (arr);
+	arr = (char **)malloc((count_words(s, c) + 1) * sizeof(char *));
+	if (!s || !arr)
+		return (NULL);
+	i = 0;
+	while (*s)
+	{
+		while (*s && *s == c)
+			s++;
+		if (*s)
+		{
+			if (!ft_strchr(s, c))
+				word_len = ft_strlen(s);
+			else
+				word_len = ft_strchr(s, c) - s;
+			arr[i] = ft_substr(s, 0, word_len);
+			s += word_len;
+			i++;
+		}
+	}
+	arr[i] = NULL;
+	return (arr);
 }
 
 // int	main(void)
@@ -87,4 +87,3 @@ char	**ft_split(char const *s, char c)
 //   free(result);
 //   return (0);
 // }
-
