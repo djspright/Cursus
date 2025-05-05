@@ -14,13 +14,13 @@
 
 void	*ft_memmove(void *dst, const void *src, size_t n)
 {
-	t_uint8_t	*d;
-	t_uint8_t	*s;
+	t_uint8_t		*d;
+	const t_uint8_t	*s;
 
 	if (!dst || !src)
 		return (NULL);
 	d = (t_uint8_t *)dst;
-	s = (t_uint8_t *)src;
+	s = (const t_uint8_t *)src;
 	if (d > s)
 	{
 		n--;

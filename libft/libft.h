@@ -18,6 +18,7 @@
 # include <stdint.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <string.h>
 
 typedef unsigned char	t_uint8_t;
 typedef unsigned short	t_uint16_t;

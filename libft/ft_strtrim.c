@@ -40,7 +40,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	end = ft_strlen(s1) - 1;
 	while (is_charset(s1[start], set) && start <= end)
 		start++;
-	while (is_charset(s1[end], set) && end >= 0)
+	while (is_charset(s1[end], set) && end > start)
 		end--;
 	trim_len = end - start + 1;
 	dst = (char *)malloc((trim_len + 1) * sizeof(char));
@@ -53,7 +53,11 @@ char	*ft_strtrim(char const *s1, char const *set)
 // int	main(void)
 // {
 // 	char	s1[] = " \t\n42Tokyo\v\f\r";
+// 	char	s2[] = "";
+// 	char	s3[] = " \t\n\v\f\r";
 // 	char	set[] = " \t\n\v\f\r";
-
+//
 // 	printf("%s\n", ft_strtrim(s1, set));
+// 	printf("%s\n", ft_strtrim(s2, set));
+// 	printf("%s\n", ft_strtrim(s3, set));
 // }
