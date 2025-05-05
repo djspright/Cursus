@@ -6,7 +6,7 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 08:32:09 by shkondo           #+#    #+#             */
-/*   Updated: 2025/05/04 22:12:52 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/05/06 01:36:19 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,19 @@ void	*ft_memmove(void *dst, const void *src, size_t n)
 	t_uint8_t		*d;
 	const t_uint8_t	*s;
 
-	if (!dst || !src)
+	if (!dst && !src)
 		return (NULL);
 	d = (t_uint8_t *)dst;
 	s = (const t_uint8_t *)src;
 	if (d > s)
 	{
-		n--;
 		while (n > 0)
 		{
-			d[n] = s[n];
 			n--;
+			d[n] = s[n];
 		}
 	}
-	else
+	else if (d != s)
 		ft_memcpy(dst, src, n);
 	return (dst);
 }
