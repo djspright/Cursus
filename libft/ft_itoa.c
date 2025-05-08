@@ -6,14 +6,13 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 16:17:23 by shkondo           #+#    #+#             */
-/*   Updated: 2025/05/04 21:15:55 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/05/09 00:10:31 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "stdio.h"
 
-size_t	get_digits(int n)
+static size_t	get_digits(int n)
 {
 	size_t	digits;
 
@@ -32,7 +31,7 @@ size_t	get_digits(int n)
 	return (digits);
 }
 
-char	*zero_or_min(int n)
+static char	*zero_or_min(int n)
 {
 	if (n == 0)
 		return (ft_strdup("0"));
@@ -69,6 +68,7 @@ char	*ft_itoa(int n)
 	return (dst);
 }
 
+// #include <stdio.h>
 // int	main(void)
 // {
 // 	printf("%s\n", ft_itoa(0));

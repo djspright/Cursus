@@ -6,7 +6,7 @@
 #    By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/05 01:50:30 by shkondo           #+#    #+#              #
-#    Updated: 2025/05/06 19:36:49 by shkondo          ###   ########.fr        #
+#    Updated: 2025/05/08 22:14:04 by shkondo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,9 +21,10 @@ LIBFT_DIR = libft
 LIBFT_A = $(LIBFT_DIR)/libft.a
 
 SRCS = ft_printf.c \
-       ft_putchar_fd.c \
-       ft_putstr_fd.c \
-       ft_putnbr_fd.c \
+       ft_printf_utils.c \
+       ft_printf_chars.c \
+       ft_printf_numbers.c \
+	   ft_printf_hex.c
 
 OBJS = $(SRCS:.c=.o)
 
@@ -37,6 +38,7 @@ $(LIBFT_A):
 	@$(MAKE) -C $(LIBFT_DIR)
 
 $(NAME): $(OBJS) $(LIBFT_A)
+	cp $(LIBFT_A) $(NAME)
 	$(AR) $(NAME) $(OBJS)
 
 %.o: %.c
@@ -44,7 +46,7 @@ $(NAME): $(OBJS) $(LIBFT_A)
 
 clean:
 	@$(MAKE) -C $(LIBFT_DIR) clean
-	$(RM) $(OBJS) $(BONUS_OBJS)
+	$(RM) $(OBJS)
 
 fclean: clean
 	@$(MAKE) -C $(LIBFT_DIR) fclean

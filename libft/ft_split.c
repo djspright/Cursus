@@ -6,20 +6,17 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 03:46:37 by shkondo           #+#    #+#             */
-/*   Updated: 2025/05/04 21:17:42 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/05/09 01:07:05 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
-size_t	count_words(char const *s, char c)
+static size_t	count_words(char const *s, char c)
 {
 	size_t	count;
 
 	count = 0;
-	if (!*s)
-		return (0);
 	while (*s)
 	{
 		if (!(*s == c))
@@ -34,14 +31,42 @@ size_t	count_words(char const *s, char c)
 	return (count);
 }
 
+static void	*free_all(char **arr, size_t i)
+{
+	size_t	j;
+
+	j = 0;
+	while (j < i)
+	{
+		free(arr[j]);
+		j++;
+	}
+	free(arr);
+	return (NULL);
+}
+
+static size_t	word_len(char const *s, char c)
+{
+	size_t	len;
+
+	len = 0;
+	if (!ft_strchr(s, c))
+		len = ft_strlen(s);
+	else
+		len = ft_strchr(s, c) - s;
+	return (len);
+}
+
 char	**ft_split(char const *s, char c)
 {
-	size_t	word_len;
+	size_t	len;
 	size_t	i;
 	char	**arr;
 
-	arr = (char **)malloc((count_words(s, c) + 1) * sizeof(char *));
-	if (!s || !arr)
+	if (!s)
+		return (NULL);
+	arr = (char **)ft_calloc((count_words(s, c) + 1), sizeof(char *));
+	if (!arr)
 		return (NULL);
 	i = 0;
 	while (*s)
@@ -50,19 +75,18 @@ char	**ft_split(char const *s, char c)
 			s++;
 		if (*s)
 		{
-			if (!ft_strchr(s, c))
-				word_len = ft_strlen(s);
-			else
-				word_len = ft_strchr(s, c) - s;
-			arr[i] = ft_substr(s, 0, word_len);
-			s += word_len;
+			len = word_len(s, c);
+			arr[i] = ft_substr(s, 0, len);
+			if (!arr[i])
+				return (free_all(arr, i));
+			s += len;
 			i++;
 		}
 	}
-	arr[i] = NULL;
 	return (arr);
 }
 
+// #include <stdio.h>
 // int	main(void)
 // {
 //   char	s[] = "Gaspard de la Nuit";

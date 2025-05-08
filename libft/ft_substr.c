@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
@@ -20,16 +19,11 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 
 	if (!s)
 		return (NULL);
-	if (start >= ft_strlen(s))
-	{
-		dst = (char *)malloc(1);
-		if (!dst)
-			return (NULL);
-		dst[0] = '\0';
-		return (dst);
-	}
-	if (ft_strlen(s) - start < len)
-		cpy_len = ft_strlen(s) - start;
+	cpy_len = ft_strlen(s);
+	if (start >= cpy_len)
+		return (ft_strdup(""));
+	if (cpy_len - start < len)
+		cpy_len -= start;
 	else
 		cpy_len = len;
 	dst = (char *)malloc((cpy_len + 1) * sizeof(char));
@@ -39,6 +33,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (dst);
 }
 
+// #include <stdio.h>
 // int	main(void)
 // {
 // 	char	s[] = "Hello, 42Tokyo";

@@ -6,13 +6,13 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 03:33:29 by shkondo           #+#    #+#             */
-/*   Updated: 2025/05/04 21:45:09 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/05/09 00:11:44 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	is_space(char c)
+static int	is_space(char c)
 {
 	if ((c >= 9 && c <= 13) || c == 32)
 		return (TRUE);

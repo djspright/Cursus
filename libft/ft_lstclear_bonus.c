@@ -6,7 +6,7 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 02:07:58 by shkondo           #+#    #+#             */
-/*   Updated: 2025/05/04 21:16:25 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/05/09 00:18:41 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,4 @@ void	ft_lstclear(t_list **lst, void (*del)(void *))
 		ft_lstdelone(*lst, del);
 		(*lst) = tmp;
 	}
-	*lst = NULL;
 }

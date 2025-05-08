@@ -6,13 +6,11 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 07:54:34 by shkondo           #+#    #+#             */
-/*   Updated: 2025/05/04 22:10:25 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/05/09 00:11:30 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stddef.h>
-#include <sys/types.h>
 
 void	ft_bzero(void *s, size_t n)
 {

@@ -6,19 +6,18 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 13:43:39 by shkondo           #+#    #+#             */
-/*   Updated: 2025/05/04 22:11:25 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/05/09 00:13:18 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
 	t_uint32_t	i;
 	char		*dst;
 
-	if (!s)
+	if (!s || !f)
 		return (NULL);
 	dst = (char *)malloc((ft_strlen(s) + 1) * sizeof(char));
 	if (!dst)
@@ -33,6 +32,7 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	return (dst);
 }
 
+// #include <stdio.h>
 // char	to_upper(unsigned int i, char c)
 // {
 // 	(void)i;

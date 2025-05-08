@@ -6,13 +6,13 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 07:16:14 by shkondo           #+#    #+#             */
-/*   Updated: 2025/05/04 21:18:08 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/05/09 00:13:43 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	total_len(char const *s1, char const *s2)
+static size_t	total_len(char const *s1, char const *s2)
 {
 	size_t	total_len;
 

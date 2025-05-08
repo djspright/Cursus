@@ -1,35 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_printf_chars.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/25 03:25:39 by shkondo           #+#    #+#             */
-/*   Updated: 2025/04/29 03:23:03 by shkondo          ###   ########.fr       */
+/*   Created: 2025/05/08 22:19:20 by shkondo           #+#    #+#             */
+/*   Updated: 2025/05/08 22:20:16 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-char	*ft_strdup(const char *s)
+int	handle_char(char c)
 {
-	int		i;
-	int		len;
-	char	*dst;
+	return (write(STDOUT_FILENO, &c, sizeof(char)));
+}
 
+int	handle_string(char *s)
+{
 	if (!s)
-		return (NULL);
-	i = 0;
-	len = ft_strlen(s);
-	dst = (char *)malloc((len + 1) * sizeof(char));
-	if (dst == NULL)
-		return (NULL);
-	while (s[i])
-	{
-		dst[i] = s[i];
-		i++;
-	}
-	dst[i] = '\0';
-	return (dst);
+		return ;
+	write(STDOUT_FILENO, s, ft_strlen(s));
+	return (ft_strlen(s));
 }

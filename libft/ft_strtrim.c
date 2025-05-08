@@ -6,14 +6,13 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 11:42:58 by shkondo           #+#    #+#             */
-/*   Updated: 2025/05/04 21:51:37 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/05/09 00:16:55 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
-int	is_charset(char c, char const *set)
+static int	is_charset(char c, char const *set)
 {
 	size_t	i;
 
@@ -50,6 +49,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	return (dst);
 }
 
+// #include <stdio.h>
 // int	main(void)
 // {
 // 	char	s1[] = " \t\n42Tokyo\v\f\r";

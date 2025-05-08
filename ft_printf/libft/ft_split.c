@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stddef.h>
 #include <stdio.h>
 
 size_t	count_words(char const *s, char c)
@@ -34,9 +35,32 @@ size_t	count_words(char const *s, char c)
 	return (count);
 }
 
+int	free_all(char **arr, size_t i)
+{
+	while (i >= 0)
+	{
+		free(arr[i]);
+		i--;
+	}
+	free(arr);
+	return (0);
+}
+
+int	word_len(char const *s, char c)
+{
+	size_t	len;
+
+	len = 0;
+	if (!ft_strchr(s, c))
+		len = ft_strlen(s);
+	else
+		len = ft_strchr(s, c) - s;
+	return (len);
+}
+
 char	**ft_split(char const *s, char c)
 {
-	size_t	word_len;
+	size_t	len;
 	size_t	i;
 	char	**arr;
 
@@ -50,12 +74,11 @@ char	**ft_split(char const *s, char c)
 			s++;
 		if (*s)
 		{
-			if (!ft_strchr(s, c))
-				word_len = ft_strlen(s);
-			else
-				word_len = ft_strchr(s, c) - s;
-			arr[i] = ft_substr(s, 0, word_len);
-			s += word_len;
+			len = word_len(s, c);
+			arr[i] = ft_substr(s, 0, len);
+			if (!arr[i])
+				return (free_all(arr, i), NULL);
+			s += len;
 			i++;
 		}
 	}
