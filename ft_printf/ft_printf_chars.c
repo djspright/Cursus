@@ -14,13 +14,26 @@
 
 int	handle_char(char c)
 {
-	return (write(STDOUT_FILENO, &c, sizeof(char)));
+	write(STDOUT_FILENO, &c, sizeof(char));
+	return (1);
 }
 
 int	handle_string(char *s)
 {
+	int	len;
+
 	if (!s)
-		return ;
-	write(STDOUT_FILENO, s, ft_strlen(s));
-	return (ft_strlen(s));
+	{
+		write(STDOUT_FILENO, "(null)", 6);
+		return (6);
+	}
+	len = ft_strlen(s);
+	write(STDOUT_FILENO, s, len);
+	return (len);
+}
+
+int	handle_prtcent(void)
+{
+	write(STDOUT_FILENO, "%", sizeof(char));
+	return (1);
 }
