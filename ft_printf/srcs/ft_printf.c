@@ -6,13 +6,13 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 01:49:32 by shkondo           #+#    #+#             */
-/*   Updated: 2025/05/10 03:43:23 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/05/10 09:45:22 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	parse_format(const char *format, va_list args)
+static int	parse_format(const char *format, va_list args)
 {
 	size_t	i;
 	int		count;
@@ -25,11 +25,11 @@ int	parse_format(const char *format, va_list args)
 		{
 			i++;
 			if (format[i] == 'c' || format[i] == 's' || format[i] == '%')
-				return (parse_chars(format, args, i));
+				return (process_chars(format, args, i));
 			else if (format[i] == 'i' || format[i] == 'd' || format[i] == 'u')
-				return (parse_decimals(format, args, i));
+				return (process_decimals(format, args, i));
 			else if (format[i] == 'x' || format[i] == 'X' || format[i] == 'p')
-				return (parse_hexs(format, args, i));
+				return (process_hexs(format, args, i));
 		}
 		i++;
 	}

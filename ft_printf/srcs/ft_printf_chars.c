@@ -12,13 +12,13 @@
 
 #include "ft_printf.h"
 
-int	handle_char(char c)
+static int	handle_char(char c)
 {
 	write(STDOUT_FILENO, &c, sizeof(char));
 	return (1);
 }
 
-int	handle_string(char *s)
+static int	handle_string(char *s)
 {
 	int	len;
 
@@ -32,13 +32,13 @@ int	handle_string(char *s)
 	return (len);
 }
 
-int	handle_percent(void)
+static int	handle_percent(void)
 {
 	write(STDOUT_FILENO, "%", sizeof(char));
 	return (1);
 }
 
-int	parse_chars(const char *format, va_list args, size_t i)
+int	process_chars(const char *format, va_list args, size_t i)
 {
 	if (format[i] == 'c')
 		return (handle_char(args));
