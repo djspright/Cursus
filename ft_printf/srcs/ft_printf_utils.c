@@ -13,36 +13,34 @@
 #include "ft_printf.h"
 #include "libft.h"
 
-char	*ft_uitoa(unsigned int n)
+size_t	count_digits(unsigned int n, size_t base_len)
 {
-	size_t	i;
-	size_t	digits;
-	char	*arr;
+	size_t			digits;
+	unsigned int	num;
 
+	digits = 0;
 	if (n == 0)
-		return (ft_strdup("0"));
-	digits = count_digits(n, 10);
-	arr = (char *)malloc((digits + 1) * sizeof(char));
-	if (!arr)
-		return (NULL);
-	arr[digits] = '\0';
-	i = digits - 1;
+		return (1);
+	if (n < 0)
+	{
+		num = -n;
+		digits++;
+	}
 	while (n != 0)
 	{
-		arr[i] = (n % 10) + '0';
-		n /= 10;
-		i--;
+		digits++;
+		num /= base_len;
 	}
-	return (arr);
+	return (digits);
 }
 
 char	*print_hex_lower(unsigned int n)
 {
-	char	hex_lower[] = "0123456789abcdef";
-	size_t	i;
-	size_t	base_index;
-	size_t	digits;
-	char	*arr;
+	char			hex_lower[] = "0123456789abcdef";
+	size_t			i;
+	size_t			digits;
+	char			*arr;
+	unsigned int	num;
 
 	if (n == 0)
 		return (ft_strdup("0"));
@@ -53,8 +51,6 @@ char	*print_hex_lower(unsigned int n)
 	i = 0;
 	while (n != 0)
 	{
-		base_index = get_index((n % 0x10) + '0', hex_lower);
-		arr[i] = '0' + hex_lower[base_index];
 		n /= 0x10;
 		i++;
 	}
@@ -64,11 +60,11 @@ char	*print_hex_lower(unsigned int n)
 
 char	*print_hex_upper(unsigned int n)
 {
-	char	hex_upper[] = "0123456789ABCDEF";
-	size_t	i;
-	size_t	base_index;
-	size_t	digits;
-	char	*arr;
+	char			hex_upper[] = "0123456789ABCDEF";
+	size_t			i;
+	size_t			digits;
+	char			*arr;
+	unsigned int	num;
 
 	if (n == 0)
 		return (ft_strdup("0"));
@@ -79,8 +75,6 @@ char	*print_hex_upper(unsigned int n)
 	i = 0;
 	while (n != 0)
 	{
-		base_index = get_index((n % 0x10) + '0', hex_upper);
-		arr[i] = '0' + hex_upper[base_index];
 		n /= 0x10;
 		i++;
 	}

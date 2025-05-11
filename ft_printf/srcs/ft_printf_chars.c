@@ -6,7 +6,7 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 22:19:20 by shkondo           #+#    #+#             */
-/*   Updated: 2025/05/10 03:43:22 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/05/11 07:12:28 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	handle_char(char c)
 {
-	write(STDOUT_FILENO, &c, sizeof(char));
+	write(STDOUT_FILENO, &c, sizeof(c));
 	return (1);
 }
 
@@ -38,14 +38,13 @@ static int	handle_percent(void)
 	return (1);
 }
 
-int	process_chars(const char *format, va_list args, size_t i)
+int	process_chars(const char specifier, va_list args)
 {
-	if (format[i] == 'c')
-		return (handle_char(args));
-	else if (format[i] == 's')
-		return (handle_string(args));
-	else if (format[i] == '%')
+	if (specifier == 'c')
+		return (handle_char(va_arg(args, int)));
+	else if (specifier == 's')
+		return (handle_string(va_arg(args, char *)));
+	else if (specifier == '%')
 		return (handle_percent());
-	else
-		return (-1);
+	return (-1);
 }

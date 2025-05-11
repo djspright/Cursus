@@ -18,13 +18,11 @@
 
 int		ft_printf(const char *format, ...);
 
-int		process_chars(const char *format, va_list args, size_t i);
-int		process_decimals(const char *format, va_list args, size_t i);
-int		process_hexs(const char *format, va_list args, size_t i);
+int		process_chars(const char specifier, va_list args);
+int		process_decimals(const char specifier, va_list args);
+int		process_hexs(const char specifier, va_list args);
 
-size_t	get_index(char c, char *base);
-size_t	count_digits(int n, size_t base_len);
-char	*ft_uitoa(unsigned int n);
+size_t	count_digits(unsigned int n, size_t base_len);
 char	*print_hex_lower(unsigned int n);
 char	*print_hex_upper(unsigned int n);
 char	*print_pointer(void *addr);

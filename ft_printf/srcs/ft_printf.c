@@ -12,7 +12,26 @@
 
 #include "ft_printf.h"
 
-static int	parse_format(const char *format, va_list args)
+static int	handle_conversion(char specifier, va_list args)
+{
+	if (specifier == 'c')
+		return (process_chars(specifier, args));
+	else if (specifier == 's')
+		return (process_chars(specifier, args));
+	else if (specifier == '%')
+		return (process_chars(specifier, args));
+	else if (specifier == 'i' || specifier == 'd')
+		return (process_decimals(specifier, args));
+	else if (specifier == 'u')
+		return (process_decimals(specifier, args));
+	else if (specifier == 'x' || specifier == 'X')
+		return (process_hexs(specifier, args));
+	else if (specifier == 'p')
+		return (process_hexs(specifier, args));
+	return (0);
+}
+
+static int	parse_and_print(const char *format, va_list args)
 {
 	size_t	i;
 	int		count;
@@ -21,19 +40,21 @@ static int	parse_format(const char *format, va_list args)
 	count = 0;
 	while (format[i])
 	{
-		if (format[i] == '%' && format[i + 1])
+		if (format[i] == '%')
 		{
 			i++;
-			if (format[i] == 'c' || format[i] == 's' || format[i] == '%')
-				return (process_chars(format, args, i));
-			else if (format[i] == 'i' || format[i] == 'd' || format[i] == 'u')
-				return (process_decimals(format, args, i));
-			else if (format[i] == 'x' || format[i] == 'X' || format[i] == 'p')
-				return (process_hexs(format, args, i));
+			if (format[i] == '\0')
+				break ;
+			count += handle_conversion(format[i], args);
+		}
+		else
+		{
+			ft_putchar_fd(format[i], 1);
+			count++;
 		}
 		i++;
 	}
-	return (-1);
+	return (count);
 }
 
 int	ft_printf(const char *format, ...)
@@ -44,7 +65,7 @@ int	ft_printf(const char *format, ...)
 	if (!format)
 		return (-1);
 	va_start(args, format);
-	count = parse_format(format, args);
+	count = parse_and_print(format, args);
 	va_end(args);
 	return (count);
 }
