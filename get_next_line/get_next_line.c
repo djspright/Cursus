@@ -11,31 +11,50 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stddef.h>
 
 char	*get_next_line(int fd)
 {
-	char		*line;
-	char		*ptr;
+	char		buf[BUFFER_SIZE];
 	char		*dst;
 	static char	*saved_buffer;
+	ssize_t		bytes_read;
 	size_t		i;
 
-	if (fd == -1)
+	if (fd < 0)
 		return (NULL);
 	i = 0;
+	if (!saved_buffer)
+	{
+		while (i < BUFFER_SIZE)
+		{
+			bytes_read = read(fd, buf, sizeof(buf) - 1);
+			if (bytes_read > 0)
+				buf[bytes_read] = '\0';
+			if (buf[i] == '\n')
+			{
+				dst = ft_substr(buf, 0, i);
+				if (!dst)
+					return (NULL);
+				saved_buffer = ft_substr(buf, i + 2, bytes_read);
+				return (dst);
+			}
+			i++;
+		}
+	}
 	while (i < BUFFER_SIZE)
 	{
-		read(fd, &dst, i);
-		if (dst[i] == '\n')
+		bytes_read = read(fd, buf, sizeof(buf) - 1);
+		if (bytes_read > 0)
+			buf[bytes_read] = '\0';
+		if (buf[i] == '\n')
 		{
-			ptr = ft_strchr(line, '\n');
-			dst = ft_substr(line, ptr, &ptr - &line);
+			dst = ft_substr(buf, 0, i);
 			if (!dst)
 				return (NULL);
+			saved_buffer = ft_substr(buf, i + 2, bytes_read);
 			return (dst);
 		}
-		ptr++;
+		i++;
 	}
 	if (EOF)
 		return (dst);
