@@ -15,7 +15,7 @@
 char	*get_next_line(int fd)
 {
 	char		buf[BUFFER_SIZE];
-	char		*dst;
+	char		*line;
 	static char	*saved_buffer;
 	ssize_t		bytes_read;
 	size_t		i;
@@ -32,11 +32,11 @@ char	*get_next_line(int fd)
 				buf[bytes_read] = '\0';
 			if (buf[i] == '\n')
 			{
-				dst = ft_substr(buf, 0, i);
-				if (!dst)
+				line = ft_substr(buf, 0, i);
+				if (!line)
 					return (NULL);
 				saved_buffer = ft_substr(buf, i + 2, bytes_read);
-				return (dst);
+				return (line);
 			}
 			i++;
 		}
@@ -48,16 +48,16 @@ char	*get_next_line(int fd)
 			buf[bytes_read] = '\0';
 		if (buf[i] == '\n')
 		{
-			dst = ft_substr(buf, 0, i);
-			if (!dst)
+			line = ft_substr(buf, 0, i);
+			if (!line)
 				return (NULL);
 			saved_buffer = ft_substr(buf, i + 2, bytes_read);
-			return (dst);
+			return (line);
 		}
 		i++;
 	}
 	if (EOF)
-		return (dst);
+		return (line);
 	return (NULL);
 }
 
