@@ -32,10 +32,8 @@ typedef unsigned long long	t_uint64_t;
 
 char						*get_next_line(int fd);
 
-void						ft_putchar_fd(char c, int fd);
 size_t						ft_strlen(const char *s);
 size_t						ft_strlcpy(char *dst, const char *src, size_t size);
-void						ft_putstr_fd(char *s, int fd);
 char						*ft_strchr(const char *s, int c);
 char						*ft_strdup(const char *s);
 char						*ft_substr(const char *s, unsigned int start,

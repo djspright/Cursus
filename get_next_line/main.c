@@ -26,9 +26,9 @@ int	main(void)
 		return (1);
 	}
 	while ((line = get_next_line(fd)) != NULL)
-		printf("%s", line);
+  {printf("%s", line);
 	free(line);
-	line = NULL;
+	line = NULL;}
 	if (close(fd) == -1)
 		perror("Error closing file");
 	return (0);
