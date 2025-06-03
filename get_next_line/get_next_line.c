@@ -11,6 +11,9 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stddef.h>
+#include <stdio.h>
+#include <unistd.h>
 
 char	*ft_strchr(const char *s, int c)
 {
@@ -30,97 +33,96 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-static char	*gnl_strjoin(char *s1, char const *s2)
-{
-	char	*result;
-
-	if (!s1 && !s2)
-		return (NULL);
-	if (!s1)
-		return (ft_strdup(s2));
-	if (!s2)
-		return (ft_strdup(s1));
-	result = ft_strjoin(s1, s2);
-	free(s1);
-	return (result);
-}
-
-static char	*extract_line_and_update_saved(char **saved_buffer_ptr)
+static char	*extract_line_and_update_saved(char **saved_ptr)
 {
 	char	*line;
-	char	*newline_char_ptr;
-	char	*tmp_next_saved;
+	char	*newline_ptr;
+	char	*next_saved;
 	size_t	line_len;
 
-	if (!saved_buffer_ptr || !*saved_buffer_ptr
-		|| (*saved_buffer_ptr)[0] == '\0')
+	if (!saved_ptr || !*saved_ptr || !**saved_ptr)
 		return (NULL);
-	newline_char_ptr = ft_strchr(*saved_buffer_ptr, '\n');
-	if (newline_char_ptr != NULL)
+	newline_ptr = ft_strchr(*saved_ptr, '\n');
+	if (newline_ptr)
 	{
-		line_len = newline_char_ptr - *saved_buffer_ptr;
-		line = ft_substr(*saved_buffer_ptr, 0, line_len + 1);
+		line_len = newline_ptr - *saved_ptr + 1;
+		line = ft_substr(*saved_ptr, 0, line_len);
 		if (!line)
 			return (NULL);
-		tmp_next_saved = ft_strdup(newline_char_ptr + 1);
-		if (!tmp_next_saved && (newline_char_ptr + 1)[0] != '\0')
+		next_saved = ft_strdup(newline_ptr + 1);
+		if (!next_saved && *(newline_ptr + 1) != '\0')
 		{
 			free(line);
 			return (NULL);
 		}
-		free(*saved_buffer_ptr);
-		*saved_buffer_ptr = tmp_next_saved;
+		free(*saved_ptr);
+		*saved_ptr = next_saved;
 		return (line);
 	}
-	else
+	return (NULL);
+}
+
+static char	*join_and_extract(char **saved_ptr, const char *buf)
+{
+	char	*tmp_saved;
+	char	*line;
+
+	tmp_saved = gnl_strjoin(*saved_ptr, buf);
+	if (!tmp_saved)
+	{
+		*saved_ptr = NULL;
+		return ((char *)-1);
+	}
+	*saved_ptr = tmp_saved;
+	line = extract_line_and_update_saved(saved_ptr);
+	return (line);
+}
+
+static char	*extract_remaining(char **saved_ptr, ssize_t bytes_read)
+{
+	char	*line;
+
+	if (bytes_read < 0)
+	{
+		free(*saved_ptr);
+		*saved_ptr = NULL;
 		return (NULL);
+	}
+	if (*saved_ptr && **saved_ptr)
+	{
+		line = ft_strdup(*saved_ptr);
+		free(*saved_ptr);
+		*saved_ptr = NULL;
+		return (line);
+	}
+	free(*saved_ptr);
+	*saved_ptr = NULL;
+	return (NULL);
 }
 
 char	*get_next_line(int fd)
 {
-	char		buf[BUFFER_SIZE + 1];
+	static char	*s_buf;
+	char		read_buf[BUFFER_SIZE + 1];
 	char		*line;
-	static char	*saved_buffer;
 	ssize_t		bytes_read;
-	char		*tmp_saved;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	line = extract_line_and_update_saved(&saved_buffer);
+	line = extract_line_and_update_saved(&s_buf);
 	if (line)
 		return (line);
-	while ((bytes_read = read(fd, buf, BUFFER_SIZE)) > 0)
+	while (1)
 	{
-		buf[bytes_read] = '\0';
-		tmp_saved = gnl_strjoin(saved_buffer, buf);
-		if (!tmp_saved)
-		{
-			free(saved_buffer);
-			saved_buffer = NULL;
+		bytes_read = read(fd, read_buf, BUFFER_SIZE);
+		if (bytes_read <= 0)
+			break ;
+		read_buf[bytes_read] = '\0';
+		line = join_and_extract(&s_buf, read_buf);
+		if (line == (char *)-1)
 			return (NULL);
-		}
-		saved_buffer = tmp_saved;
-		line = extract_line_and_update_saved(&saved_buffer);
 		if (line)
 			return (line);
 	}
-	if (bytes_read < 0)
-	{
-		free(saved_buffer);
-		saved_buffer = NULL;
-		return (NULL);
-	}
-	if (saved_buffer != NULL && saved_buffer[0] != '\0')
-	{
-		line = ft_strdup(saved_buffer);
-		free(saved_buffer);
-		saved_buffer = NULL;
-		if (!line)
-			return (NULL);
-		return (line);
-	}
-	return (line);
-	free(saved_buffer);
-	saved_buffer = NULL;
-	return (NULL);
+	return (extract_remaining(&s_buf, bytes_read));
 }

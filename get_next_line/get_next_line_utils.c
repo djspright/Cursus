@@ -84,31 +84,26 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (dst);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*gnl_strjoin(char *s1, const char *s2)
 {
-	size_t	i;
-	size_t	j;
-	size_t	total_len;
+	size_t	s1_len;
+	size_t	s2_len;
 	char	*dst;
 
-	if (!s1 || !s2)
-		return (NULL);
-	total_len = ft_strlen(s1) + ft_strlen(s2);
-	dst = (char *)malloc((total_len + 1) * sizeof(char));
+	if (!s2)
+		return (s1);
+	if (!s1)
+		return (ft_strdup(s2));
+	s1_len = ft_strlen(s1);
+	s2_len = ft_strlen(s2);
+	dst = (char *)malloc((s1_len + s2_len + 1) * sizeof(char));
 	if (!dst)
+	{
+		free(s1);
 		return (NULL);
-	i = 0;
-	while (s1[i])
-	{
-		dst[i] = s1[i];
-		i++;
 	}
-	j = 0;
-	while (s2[j])
-	{
-		dst[i + j] = s2[j];
-		j++;
-	}
-	dst[i + j] = '\0';
+	ft_strlcpy(dst, s1, s1_len + 1);
+	ft_strlcpy(dst + s1_len, s2, s2_len + 1);
+	free(s1);
 	return (dst);
 }

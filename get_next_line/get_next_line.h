@@ -38,6 +38,6 @@ char						*ft_strchr(const char *s, int c);
 char						*ft_strdup(const char *s);
 char						*ft_substr(const char *s, unsigned int start,
 								size_t len);
-char						*ft_strjoin(const char *s, const char *s2);
+char						*gnl_strjoin(char *s, const char *s2);
 
 #endif
