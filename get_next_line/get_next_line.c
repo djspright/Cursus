@@ -6,7 +6,7 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 21:42:59 by shkondo           #+#    #+#             */
-/*   Updated: 2025/06/16 04:02:30 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/06/16 23:16:00 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ char	*read_file(int fd, char *res)
 		if (bytes_read == -1)
 		{
 			free(read_buf);
+			free(res);
 			return (NULL);
 		}
 		read_buf[bytes_read] = 0;
@@ -91,7 +92,12 @@ char	*get_next_line(int fd)
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+	{
+		if (saved_buf)
+			free(saved_buf);
+		saved_buf = NULL;
 		return (NULL);
+	}
 	saved_buf = read_file(fd, saved_buf);
 	if (!saved_buf)
 		return (NULL);
