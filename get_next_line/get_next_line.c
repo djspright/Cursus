@@ -6,123 +6,96 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 21:42:59 by shkondo           #+#    #+#             */
-/*   Updated: 2025/05/26 16:31:37 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/06/16 04:02:30 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stddef.h>
-#include <stdio.h>
-#include <unistd.h>
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_next(char *saved_buf)
 {
-	t_uint8_t	uc;
+	size_t	i;
+	char	*next_part;
+	char	*new_saved_buf;
 
-	uc = (t_uint8_t)c;
-	if (!s)
-		return (NULL);
-	while (*s)
+	i = 0;
+	while (saved_buf[i] && saved_buf[i] != '\n')
+		i++;
+	if (!saved_buf[i])
 	{
-		if (*s == uc)
-			return ((char *)s);
-		s++;
+		free(saved_buf);
+		return (NULL);
 	}
-	if (uc == '\0')
-		return ((char *)s);
-	return (NULL);
+	next_part = saved_buf + i + 1;
+	if (*next_part == '\0')
+	{
+		free(saved_buf);
+		return (NULL);
+	}
+	new_saved_buf = ft_strdup(next_part);
+	free(saved_buf);
+	return (new_saved_buf);
 }
 
-static char	*extract_line_and_update_saved(char **saved_ptr)
+char	*ft_line(char *saved_buf)
 {
 	char	*line;
-	char	*newline_ptr;
-	char	*next_saved;
+	size_t	i;
 	size_t	line_len;
 
-	if (!saved_ptr || !*saved_ptr || !**saved_ptr)
+	i = 0;
+	if (!saved_buf || !saved_buf[0])
 		return (NULL);
-	newline_ptr = ft_strchr(*saved_ptr, '\n');
-	if (newline_ptr)
-	{
-		line_len = newline_ptr - *saved_ptr + 1;
-		line = ft_substr(*saved_ptr, 0, line_len);
-		if (!line)
-			return (NULL);
-		next_saved = ft_strdup(newline_ptr + 1);
-		if (!next_saved && *(newline_ptr + 1) != '\0')
-		{
-			free(line);
-			return (NULL);
-		}
-		free(*saved_ptr);
-		*saved_ptr = next_saved;
-		return (line);
-	}
-	return (NULL);
-}
-
-static char	*join_and_extract(char **saved_ptr, const char *buf)
-{
-	char	*tmp_saved;
-	char	*line;
-
-	tmp_saved = gnl_strjoin(*saved_ptr, buf);
-	if (!tmp_saved)
-	{
-		*saved_ptr = NULL;
-		return ((char *)-1);
-	}
-	*saved_ptr = tmp_saved;
-	line = extract_line_and_update_saved(saved_ptr);
+	while (saved_buf[i] && saved_buf[i] != '\n')
+		i++;
+	if (saved_buf[i] == '\n')
+		line_len = i + 1;
+	else
+		line_len = i;
+	line = (char *)malloc((i + 2) * sizeof(char));
+	if (!line)
+		return (NULL);
+	ft_strlcpy(line, saved_buf, line_len + 1);
 	return (line);
 }
 
-static char	*extract_remaining(char **saved_ptr, ssize_t bytes_read)
+char	*read_file(int fd, char *res)
 {
-	char	*line;
+	char	*read_buf;
+	ssize_t	bytes_read;
 
-	if (bytes_read < 0)
-	{
-		free(*saved_ptr);
-		*saved_ptr = NULL;
+	read_buf = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (!read_buf)
 		return (NULL);
-	}
-	if (*saved_ptr && **saved_ptr)
+	bytes_read = 1;
+	while (bytes_read > 0)
 	{
-		line = ft_strdup(*saved_ptr);
-		free(*saved_ptr);
-		*saved_ptr = NULL;
-		return (line);
+		bytes_read = read(fd, read_buf, BUFFER_SIZE);
+		if (bytes_read == -1)
+		{
+			free(read_buf);
+			return (NULL);
+		}
+		read_buf[bytes_read] = 0;
+		res = gnl_strjoin(res, read_buf);
+		if (ft_strchr(read_buf, '\n'))
+			break ;
 	}
-	free(*saved_ptr);
-	*saved_ptr = NULL;
-	return (NULL);
+	free(read_buf);
+	return (res);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*s_buf;
-	char		read_buf[BUFFER_SIZE + 1];
+	static char	*saved_buf;
 	char		*line;
-	ssize_t		bytes_read;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (NULL);
-	line = extract_line_and_update_saved(&s_buf);
-	if (line)
-		return (line);
-	while (1)
-	{
-		bytes_read = read(fd, read_buf, BUFFER_SIZE);
-		if (bytes_read <= 0)
-			break ;
-		read_buf[bytes_read] = '\0';
-		line = join_and_extract(&s_buf, read_buf);
-		if (line == (char *)-1)
-			return (NULL);
-		if (line)
-			return (line);
-	}
-	return (extract_remaining(&s_buf, bytes_read));
+	saved_buf = read_file(fd, saved_buf);
+	if (!saved_buf)
+		return (NULL);
+	line = ft_line(saved_buf);
+	saved_buf = ft_next(saved_buf);
+	return (line);
 }

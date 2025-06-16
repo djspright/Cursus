@@ -24,7 +24,6 @@ typedef unsigned long long	t_uint64_t;
 
 # define TRUE 1
 # define FALSE 0
-# define EOF -1
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 4096
@@ -36,8 +35,5 @@ size_t						ft_strlen(const char *s);
 size_t						ft_strlcpy(char *dst, const char *src, size_t size);
 char						*ft_strchr(const char *s, int c);
 char						*ft_strdup(const char *s);
-char						*ft_substr(const char *s, unsigned int start,
-								size_t len);
-char						*gnl_strjoin(char *s, const char *s2);
-
+char						*gnl_strjoin(char *s1, const char *s2);
 #endif
