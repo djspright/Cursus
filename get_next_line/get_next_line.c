@@ -6,7 +6,7 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 21:42:59 by shkondo           #+#    #+#             */
-/*   Updated: 2025/06/16 23:16:00 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/06/23 13:54:54 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,22 @@
 
 char	*ft_next(char *saved_buf)
 {
-	size_t	i;
 	char	*next_part;
 	char	*new_saved_buf;
 
-	i = 0;
-	while (saved_buf[i] && saved_buf[i] != '\n')
-		i++;
-	if (!saved_buf[i])
+	next_part = ft_strchr(saved_buf, '\n');
+	if (!next_part)
 	{
 		free(saved_buf);
 		return (NULL);
 	}
-	next_part = saved_buf + i + 1;
-	if (*next_part == '\0')
-	{
-		free(saved_buf);
-		return (NULL);
-	}
-	new_saved_buf = ft_strdup(next_part);
+	new_saved_buf = ft_strdup(next_part + 1);
 	free(saved_buf);
+	if (new_saved_buf && *new_saved_buf == '\0')
+	{
+		free(new_saved_buf);
+		return (NULL);
+	}
 	return (new_saved_buf);
 }
 
@@ -41,25 +37,22 @@ char	*ft_line(char *saved_buf)
 {
 	char	*line;
 	size_t	i;
-	size_t	line_len;
 
-	i = 0;
 	if (!saved_buf || !saved_buf[0])
 		return (NULL);
+	i = 0;
 	while (saved_buf[i] && saved_buf[i] != '\n')
 		i++;
 	if (saved_buf[i] == '\n')
-		line_len = i + 1;
-	else
-		line_len = i;
-	line = (char *)malloc((i + 2) * sizeof(char));
+		i++;
+	line = (char *)malloc((i + 1) * sizeof(char));
 	if (!line)
 		return (NULL);
-	ft_strlcpy(line, saved_buf, line_len + 1);
+	ft_strlcpy(line, saved_buf, i + 1);
 	return (line);
 }
 
-char	*read_file(int fd, char *res)
+char	*read_file(int fd, char *saved_buf)
 {
 	char	*read_buf;
 	ssize_t	bytes_read;
@@ -68,22 +61,22 @@ char	*read_file(int fd, char *res)
 	if (!read_buf)
 		return (NULL);
 	bytes_read = 1;
-	while (bytes_read > 0)
+	while (bytes_read > 0 && !ft_strchr(saved_buf, '\n'))
 	{
 		bytes_read = read(fd, read_buf, BUFFER_SIZE);
-		if (bytes_read == -1)
+		if (bytes_read < 0)
 		{
 			free(read_buf);
-			free(res);
+			free(saved_buf);
 			return (NULL);
 		}
-		read_buf[bytes_read] = 0;
-		res = gnl_strjoin(res, read_buf);
-		if (ft_strchr(read_buf, '\n'))
+		if (bytes_read == 0)
 			break ;
+		read_buf[bytes_read] = '\0';
+		saved_buf = gnl_strjoin(saved_buf, read_buf);
 	}
 	free(read_buf);
-	return (res);
+	return (saved_buf);
 }
 
 char	*get_next_line(int fd)
@@ -91,13 +84,8 @@ char	*get_next_line(int fd)
 	static char	*saved_buf;
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
-	{
-		if (saved_buf)
-			free(saved_buf);
-		saved_buf = NULL;
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	}
 	saved_buf = read_file(fd, saved_buf);
 	if (!saved_buf)
 		return (NULL);
