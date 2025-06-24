@@ -6,7 +6,7 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 21:42:59 by shkondo           #+#    #+#             */
-/*   Updated: 2025/06/23 13:54:54 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/06/25 00:14:19 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,21 +57,22 @@ char	*read_file(int fd, char *saved_buf)
 	char	*read_buf;
 	ssize_t	bytes_read;
 
-	read_buf = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
-	if (!read_buf)
-		return (NULL);
 	bytes_read = 1;
+	read_buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!read_buf)
+	{
+		free(saved_buf);
+		return (NULL);
+	}
 	while (bytes_read > 0 && !ft_strchr(saved_buf, '\n'))
 	{
 		bytes_read = read(fd, read_buf, BUFFER_SIZE);
 		if (bytes_read < 0)
 		{
-			free(read_buf);
 			free(saved_buf);
+			free(read_buf);
 			return (NULL);
 		}
-		if (bytes_read == 0)
-			break ;
 		read_buf[bytes_read] = '\0';
 		saved_buf = gnl_strjoin(saved_buf, read_buf);
 	}
@@ -90,6 +91,17 @@ char	*get_next_line(int fd)
 	if (!saved_buf)
 		return (NULL);
 	line = ft_line(saved_buf);
+	if (!line)
+	{
+		free(saved_buf);
+		saved_buf = NULL;
+		return (NULL);
+	}
 	saved_buf = ft_next(saved_buf);
+	if (line[0] == '\0')
+	{
+		free(line);
+		return (NULL);
+	}
 	return (line);
 }
