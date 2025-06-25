@@ -6,7 +6,7 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 21:42:59 by shkondo           #+#    #+#             */
-/*   Updated: 2025/06/25 00:14:19 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/06/25 10:54:25 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char	*ft_next(char *saved_buf)
 	char	*next_part;
 	char	*new_saved_buf;
 
+	if (!saved_buf)
+		return (NULL);
 	next_part = ft_strchr(saved_buf, '\n');
 	if (!next_part)
 	{
@@ -52,29 +54,38 @@ char	*ft_line(char *saved_buf)
 	return (line);
 }
 
+char	*ft_free(char *ptr)
+{
+	if (ptr)
+		free(ptr);
+	return (NULL);
+}
+
 char	*read_file(int fd, char *saved_buf)
 {
 	char	*read_buf;
 	ssize_t	bytes_read;
 
-	bytes_read = 1;
 	read_buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!read_buf)
-	{
-		free(saved_buf);
-		return (NULL);
-	}
-	while (bytes_read > 0 && !ft_strchr(saved_buf, '\n'))
+		return (ft_free(saved_buf));
+	while (!saved_buf || !ft_strchr(saved_buf, '\n'))
 	{
 		bytes_read = read(fd, read_buf, BUFFER_SIZE);
 		if (bytes_read < 0)
 		{
-			free(saved_buf);
+			free(read_buf);
+			return (ft_free(saved_buf));
+		}
+		if (bytes_read == 0)
+			break ;
+		read_buf[bytes_read] = '\0';
+		saved_buf = gnl_strjoin(saved_buf, read_buf);
+		if (!saved_buf)
+		{
 			free(read_buf);
 			return (NULL);
 		}
-		read_buf[bytes_read] = '\0';
-		saved_buf = gnl_strjoin(saved_buf, read_buf);
 	}
 	free(read_buf);
 	return (saved_buf);
@@ -98,7 +109,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	}
 	saved_buf = ft_next(saved_buf);
-	if (line[0] == '\0')
+	if (line && line[0] == '\0')
 	{
 		free(line);
 		return (NULL);
