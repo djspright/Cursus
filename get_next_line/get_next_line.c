@@ -6,7 +6,7 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 21:42:59 by shkondo           #+#    #+#             */
-/*   Updated: 2025/06/25 10:54:25 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/06/28 23:01:13 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,38 +54,46 @@ char	*ft_line(char *saved_buf)
 	return (line);
 }
 
-char	*ft_free(char *ptr)
+int	read_and_join(int fd, char **saved_buf, char *read_buf)
 {
-	if (ptr)
-		free(ptr);
-	return (NULL);
+	ssize_t	bytes_read;
+
+	bytes_read = read(fd, read_buf, BUFFER_SIZE);
+	if (bytes_read < 0)
+	{
+		if (*saved_buf)
+			free(*saved_buf);
+		*saved_buf = NULL;
+		return (-1);
+	}
+	if (bytes_read == 0)
+		return (0);
+	read_buf[bytes_read] = '\0';
+	*saved_buf = gnl_strjoin(*saved_buf, read_buf);
+	if (!*saved_buf)
+		return (-1);
+	return (1);
 }
 
 char	*read_file(int fd, char *saved_buf)
 {
 	char	*read_buf;
-	ssize_t	bytes_read;
+	int		result;
 
 	read_buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!read_buf)
-		return (ft_free(saved_buf));
+	{
+		if (saved_buf)
+			free(saved_buf);
+		return (NULL);
+	}
 	while (!saved_buf || !ft_strchr(saved_buf, '\n'))
 	{
-		bytes_read = read(fd, read_buf, BUFFER_SIZE);
-		if (bytes_read < 0)
-		{
-			free(read_buf);
-			return (ft_free(saved_buf));
-		}
-		if (bytes_read == 0)
+		result = read_and_join(fd, &saved_buf, read_buf);
+		if (result <= 0)
 			break ;
-		read_buf[bytes_read] = '\0';
-		saved_buf = gnl_strjoin(saved_buf, read_buf);
-		if (!saved_buf)
-		{
-			free(read_buf);
-			return (NULL);
-		}
+		if (saved_buf && ft_strchr(saved_buf, '\n'))
+			break ;
 	}
 	free(read_buf);
 	return (saved_buf);
@@ -100,18 +108,19 @@ char	*get_next_line(int fd)
 		return (NULL);
 	saved_buf = read_file(fd, saved_buf);
 	if (!saved_buf)
-		return (NULL);
-	line = ft_line(saved_buf);
-	if (!line)
 	{
-		free(saved_buf);
 		saved_buf = NULL;
 		return (NULL);
 	}
+	line = ft_line(saved_buf);
 	saved_buf = ft_next(saved_buf);
-	if (line && line[0] == '\0')
+	if (!line)
 	{
-		free(line);
+		if (saved_buf)
+		{
+			free(saved_buf);
+			saved_buf = NULL;
+		}
 		return (NULL);
 	}
 	return (line);
