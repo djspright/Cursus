@@ -12,36 +12,40 @@
 
 #include <unistd.h>
 
-int is_appear(char *s, char c)
+int	is_appear(char *s, char c)
 {
-  int i = 0;
+	int	i;
 
-  while(s[i])
-  {
-    if(s[i] == c)
-      return 1;
-    i++;
-  }
-  return 0;
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == c)
+			return (1);
+		i++;
+	}
+	return (0);
 }
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
-  if(ac == 3)
-  {
-    int i = 0;
-    char used[256] = {0};
+	int	i;
+		char used[256] = {0};
 
-    while(av[1][i])
-    {
-      if(used[av[1][i]] == 0 && is_appear(av[1], av[1][i]) && is_appear(av[2], av[1][i]))
-      {
-        write(1, &av[1][i], 1);
-        used[av[1][i]] = 1;
-      }
-      i++;
-    }
-  }
-  write(1, "\n", 1);
-  return 0;
+	if (ac == 3)
+	{
+		i = 0;
+		while (av[1][i])
+		{
+      // unsigned charにキャストするのを忘れずに！
+			if (used[(unsigned char)av[1][i]] == 0 && is_appear(av[1], av[1][i])
+				&& is_appear(av[2], av[1][i]))
+			{
+				write(1, &av[1][i], 1);
+				used[(unsigned char)av[1][i]] = 1;
+			}
+			i++;
+		}
+	}
+	write(1, "\n", 1);
+	return (0);
 }
