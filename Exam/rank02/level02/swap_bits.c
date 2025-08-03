@@ -14,16 +14,14 @@
 
 void	print_bits(unsigned char octet)
 {
-	int	div;
+	int				i;
+	unsigned char	bit;
 
-	div = 0b10000000;
-	while (div)
+	i = 8;
+	while (i--)
 	{
-		if (div & octet)
-			write(1, "1", 1);
-		else
-			write(1, "0", 1);
-		div >>= 1;
+		bit = (octet >> i & 1) + '0';
+		write(1, &bit, 1);
 	}
 }
 

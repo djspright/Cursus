@@ -24,3 +24,9 @@ void	print_bits(unsigned char octet)
 		write(1, &bit, 1);
 	}
 }
+
+int	main(void)
+{
+	print_bits(170);
+	return (0);
+}
