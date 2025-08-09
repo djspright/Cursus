@@ -16,12 +16,13 @@
 int	ft_list_size(t_list *begin_list)
 {
 	int		count;
-	s_list	head;
+	t_list	*current;
 
-	head = begin_list;
-	while (head.next != null)
+  count = 0;
+	current = begin_list;
+	while (current != NULL)
 	{
-		head = head.next;
+		current = current->next;
 		count++;
 	}
 	return (count);
