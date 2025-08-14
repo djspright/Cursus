@@ -1,6 +1,6 @@
 # MinilibX directories (platform-specific)
 minilibx_opengl_20191021/
-minilibx_linux/
+minilibx-linux/
 minilibx/
 
 # Build artifacts
