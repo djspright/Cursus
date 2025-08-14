@@ -1,0 +1,12 @@
+# MinilibX directories (platform-specific)
+minilibx_opengl_20191021/
+minilibx_linux/
+minilibx/
+
+# Build artifacts
+*.o
+*.a
+fractol
+
+# macOS specific
+.DS_Store
