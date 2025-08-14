@@ -6,7 +6,7 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 16:39:18 by shkondo           #+#    #+#             */
-/*   Updated: 2025/08/14 12:13:42 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/08/14 17:11:03 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 # define FRACTOL_H
 
 # define _USE__MATH_DEFINES
-# include "minilibx_opengl_20191021/mlx.h"
+# include "libft.h"
+# include "minilibx_linux/mlx.h"
 # include <math.h>
 # include <stdlib.h>
 # include <unistd.h>
