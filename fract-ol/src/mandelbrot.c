@@ -6,59 +6,67 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 10:45:38 by shkondo           #+#    #+#             */
-/*   Updated: 2025/08/14 16:46:33 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/08/16 18:10:13 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	mandelbrot_set(int center, int magnification, int threshold)
+t_complex	mandelbrot_pixel_to_complex(int x, int y, t_fractal *fractal)
 {
-	int	z;
+	t_complex	c;
 
-	z = 0;
-	for (int i = 0; i < t_fractal->threshold; i++)
+	c.real = (x - fractal->width / 2.0) * fractal->zoom + fractal->offset_x;
+	c.imag = (y - fractal->height / 2.0) * fractal->zoom + fractal->offset_y;
+	return (c);
+}
+
+int	mandelbrot_iterate(t_complex c, int max_iter)
+{
+	t_complex z;
+	int iter;
+
+	z.real = 0.0;
+	z.imag = 0.0;
+	iter = 0;
+	while (iter < max_iter)
 	{
-		z = add(pow(z, 2), t_fractal->complex);
-		if (abs(z) > t_fractal->threshold)
-		{
-			return (1);
+		z = complex_add(complex_mul(z, z), c);
+		if (complex_magnitude(z) > 2.0)
 			break ;
-		}
+		iter++;
 	}
-	return (0);
+	return (iter);
 }
 
-void	mandelbrot_calc(t_fractal *fractal, t_image *image)
+int	mandelbrot_color(int iter, int max_iter)
 {
-	int	z;
+	if (iter == max_iter)
+		return (0x000000);
+	return ((iter * 255 / max_iter) << 16 | (iter * 127 / max_iter) << 8 | (iter
+			* 63 / max_iter));
+}
 
-	int x, y;
-	z = 0;
-	for (int i = 0; i < fractal->threshold; i++)
+void	mandelbrot_set(t_fractal *fractal)
+{
+	int			x;
+	int			y;
+	t_complex	c;
+	int			iter;
+	int			color;
+
+	y = 0;
+	while (y < HEIGHT)
 	{
-		z = add(pow(z, 2), fractal->complex);
-		if (abs(z) > fractal->threshold)
+		x = 0;
+		while (x < WIDTH)
 		{
-			return (0); // Assuming image data is a 1D array
-			break ;
+			c = mandelbrot_pixel_to_complex(x, y, fractal);
+			iter = mandelbrot_iterate(c, fractal->max_iter);
+			color = mandelbrot_color(iter, fractal->max_iter);
+			put_pixel(fractal, x, y, color);
+			x++;
 		}
+		y++;
 	}
-	return (1);
-}
-
-void	mandelbrot_pixel(t_fractal *fractal, t_image *image, int x, int y)
-{
-	int	color;
-
-	color = 0;
-	image->data[y * WIDTH + x] = color;
-}
-
-void	mandelbrot_color(t_fractal *fractal, t_image *image, int x, int y)
-{
-	int	color;
-
-	color = 0;
-	image->data[y * WIDTH + x] = color;
 }

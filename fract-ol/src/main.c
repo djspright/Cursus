@@ -6,7 +6,7 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 10:28:59 by shkondo           #+#    #+#             */
-/*   Updated: 2025/08/14 17:13:15 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/08/16 17:36:38 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,16 @@ static int	parse_arguments(int argc, char **argv, t_fractal *fractal)
 	return (0);
 }
 
+void init_fractal(t_fractal *fractal)
+{
+	fractal->zoom = 0.005;
+	fractal->offset_x = 0.0;
+	fractal->offset_y = 0.0;
+	fractal->max_iter = 100;
+	fractal->width = WIDTH;
+	fractal->height = HEIGHT;
+}
+
 int	main(int argc, char **argv)
 {
 	t_fractal	fractal;
@@ -49,8 +59,9 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	init_fractal(&fractal);
+	init_mlx(&fractal);
+	create_image(&fractal);
 	render_fractal(&fractal);
 	setup_hooks(&fractal);
-	mlx_loop(fractal.mlx);
 	return (0);
 }

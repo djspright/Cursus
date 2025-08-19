@@ -6,49 +6,50 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 11:29:22 by shkondo           #+#    #+#             */
-/*   Updated: 2025/08/14 11:32:35 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/08/16 17:28:25 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void init_mlx(t_fractal *fractal, t_image *image)
+void	init_mlx(t_fractal *fractal)
 {
-	fractal->complex = 0; // Initialize complex number
-	fractal->threshold = 100; // Set a default threshold for iterations
-	image->data = malloc(WIDTH * HEIGHT * sizeof(int)); // Allocate memory for image data
-	if (!image->data)
-	{
-		write(2, "Memory allocation failed\n", 25);
-		exit(EXIT_FAILURE);
-	}
+	fractal->mlx = mlx_init();
+	if (!fractal->mlx)
+		error_exit("Failed to initialize MLX\n", fractal);
+	fractal->win = mlx_new_window(fractal->mlx, WIDTH, HEIGHT, "Fractal");
+	if (!fractal->win)
+		error_exit("Failed to create window\n", fractal);
 }
 
-void create_image(t_fractal *fractal, t_image *image)
+void	create_image(t_fractal *fractal)
 {
 	int x, y;
+	fractal->img = mlx_new_image(fractal->mlx, WIDTH, HEIGHT);
+	if (!fractal->img)
+		error_exit("Failed to create image\n", fractal);
+	fractal->addr = mlx_get_data_addr(fractal->img, &fractal->bpp,
+			&fractal->line_length, &fractal->endian);
+	if (!fractal->addr)
+		error_exit("Failed to get image data address\n", fractal);
 }
 
-void put_pixel(t_image *image, int x, int y, int color)
+void	put_pixel(t_fractal *fractal, int x, int y, int color)
 {
-	if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
-		return; // Out of bounds check
-	((int *)image->data)[y * WIDTH + x] = color; // Assuming image data is a 1D array
+	char	*dst;
+
+	dst = fractal->addr + (y * fractal->line_length + x * (fractal->bpp / 8));
+	*(unsigned int *)dst = color;
 }
 
-void render_fractal(t_fractal *fractal, t_image *image)
+void	render_fractal(t_fractal *fractal)
 {
-	int x, y;
-	int color;
-
-	for (y = 0; y < HEIGHT; y++)
-	{
-		for (x = 0; x < WIDTH; x++)
-		{
-			color = mandelbrot_pixel(fractal, image, x, y); // Calculate pixel color
-			put_pixel(image, x, y, color); // Put pixel in image
-		}
-	}
+	if (fractal->fractal_type == MANDELBROT)
+		mandelbrot_set(fractal);
+	display_image(fractal);
 }
 
-void display_image(t_image *image);
+void	display_image(t_fractal *fractal)
+{
+	mlx_put_image_to_window(fractal->mlx, fractal->win, fractal->img, 0, 0);
+}
