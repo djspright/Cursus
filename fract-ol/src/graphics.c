@@ -6,7 +6,7 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 11:29:22 by shkondo           #+#    #+#             */
-/*   Updated: 2025/08/16 17:28:25 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/08/20 17:18:11 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	init_mlx(t_fractal *fractal)
 
 void	create_image(t_fractal *fractal)
 {
-	int x, y;
 	fractal->img = mlx_new_image(fractal->mlx, WIDTH, HEIGHT);
 	if (!fractal->img)
 		error_exit("Failed to create image\n", fractal);
@@ -46,6 +45,8 @@ void	render_fractal(t_fractal *fractal)
 {
 	if (fractal->fractal_type == MANDELBROT)
 		mandelbrot_set(fractal);
+	else if (fractal->fractal_type == JULIA)
+		julia_set(fractal);
 	display_image(fractal);
 }
 

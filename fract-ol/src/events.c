@@ -6,7 +6,7 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 11:39:40 by shkondo           #+#    #+#             */
-/*   Updated: 2025/08/19 13:02:11 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/08/20 17:12:55 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,18 @@ int	handle_keypress(int keycode, t_fractal *fractal)
 {
 	if (keycode == KEY_ESCAPE)
 		cleanup_exit(fractal);
+	else if (keycode == 99)
+	{
+		fractal->color_scheme = (fractal->color_scheme % 4) + 1;
+		render_fractal(fractal);
+	}
+	else if (keycode == 115)
+	{
+		fractal->color_shift += 20;
+		if (fractal->color_shift > 255)
+			fractal->color_shift = 0;
+		render_fractal(fractal);
+	}
 	return (0);
 }
 

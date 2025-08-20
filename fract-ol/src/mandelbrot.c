@@ -6,7 +6,7 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 10:45:38 by shkondo           #+#    #+#             */
-/*   Updated: 2025/08/16 18:10:13 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/08/20 17:09:19 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ t_complex	mandelbrot_pixel_to_complex(int x, int y, t_fractal *fractal)
 
 int	mandelbrot_iterate(t_complex c, int max_iter)
 {
-	t_complex z;
-	int iter;
+	t_complex	z;
+	int			iter;
 
 	z.real = 0.0;
 	z.imag = 0.0;
@@ -39,12 +39,16 @@ int	mandelbrot_iterate(t_complex c, int max_iter)
 	return (iter);
 }
 
-int	mandelbrot_color(int iter, int max_iter)
+int	mandelbrot_color(int iter, int max_iter, t_fractal *fractal)
 {
+	int	base_color;
+
 	if (iter == max_iter)
 		return (0x000000);
-	return ((iter * 255 / max_iter) << 16 | (iter * 127 / max_iter) << 8 | (iter
-			* 63 / max_iter));
+	base_color = get_color_scheme(iter, max_iter, fractal->color_scheme);
+	if (fractal->color_shift != 0)
+		base_color = apply_color_shift(base_color, fractal->color_shift);
+	return (base_color);
 }
 
 void	mandelbrot_set(t_fractal *fractal)
@@ -63,7 +67,7 @@ void	mandelbrot_set(t_fractal *fractal)
 		{
 			c = mandelbrot_pixel_to_complex(x, y, fractal);
 			iter = mandelbrot_iterate(c, fractal->max_iter);
-			color = mandelbrot_color(iter, fractal->max_iter);
+			color = mandelbrot_color(iter, fractal->max_iter, fractal);
 			put_pixel(fractal, x, y, color);
 			x++;
 		}

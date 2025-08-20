@@ -6,54 +6,91 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 11:41:44 by shkondo           #+#    #+#             */
-/*   Updated: 2025/08/14 11:43:50 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/08/20 16:58:30 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void create_color_palette(void)
+int	get_color_basic(int iter, int max_iter)
 {
-    // Implementation for creating a color palette
+	double	t;
+	int		r;
+	int		g;
+	int		b;
+
+	if (iter == max_iter)
+		return (0x000000);
+	t = (double)iter / max_iter;
+	r = (int)(t * 255);
+	g = (int)(t * 127);
+	b = (int)(t * 63);
+	return (r << 16 | g << 8 | b);
 }
 
-void get_gradient_color(int iteration, int max_iterations)
+int	get_color_ocean(int iter, int max_iter)
 {
-	// Implementation for getting a color based on the iteration count
-	// This could involve mapping the iteration count to a color in a gradient
+	double	t;
+	int		r;
+	int		g;
+	int		b;
+
+	if (iter == max_iter)
+		return (0x000000);
+	t = (double)iter / max_iter;
+	r = (int)(t * 64);
+	g = (int)(t * 128);
+	b = (int)(t * 255);
+	return (r << 16 | g << 8 | b);
 }
 
-void hsv_to_rgb(float h, float s, float v, int *r, int *g, int *b)
+int	get_color_fire(int iter, int max_iter)
 {
-	float p, q, t, f;
-	int i;
+	double	t;
+	int		r;
+	int		g;
+	int		b;
 
-	if (s == 0)
-	{
-		*r = *g = *b = (int)(v * 255);
-		return;
-	}
-	h /= 60;
-	i = (int)h;
-	f = h - i;
-	p = v * (1 - s);
-	q = v * (1 - f * s);
-	t = v * (1 - (1 - f) * s);
-
-	switch (i % 6)
-	{
-		case 0: *r = (int)(v * 255); *g = (int)(t * 255); *b = (int)(p * 255); break;
-		case 1: *r = (int)(q * 255); *g = (int)(v * 255); *b = (int)(p * 255); break;
-		case 2: *r = (int)(p * 255); *g = (int)(v * 255); *b = (int)(t * 255); break;
-		case 3: *r = (int)(p * 255); *g = (int)(q * 255); *b = (int)(v * 255); break;
-		case 4: *r = (int)(t * 255); *g = (int)(p * 255); *b = (int)(v * 255); break;
-		case 5: *r = (int)(v * 255); *g = (int)(p * 255); *b = (int)(q * 255); break;
-	}
+	if (iter == max_iter)
+		return (0x000000);
+	t = (double)iter / max_iter;
+	r = (int)(t * 255);
+	g = 0;
+	b = 0;
+	if (t > 0.5)
+		g = (int)((t - 0.5) * 2 * 255);
+	return (r << 16 | g << 8 | b);
 }
 
-void shift_colors(int *r, int *g, int *b, int shift)
+int	get_color_rainbow(int iter, int max_iter)
 {
-	*r = (*r + shift) % 256;
-	*g = (*g + shift) % 256;
-	*b = (*b + shift) % 256;
+	double	t;
+	double	cycle;
+	int		r;
+	int		g;
+	int		b;
+
+	if (iter == max_iter)
+		return (0x000000);
+	t = (double)iter / max_iter;
+	cycle = t * 6.0;
+	r = (int)(127 * (1 + sin(cycle)));
+	g = (int)(127 * (1 + sin(cycle + 2.0)));
+	b = (int)(127 * (1 + sin(cycle + 4.0)));
+	return (r << 16 | g << 8 | b);
+}
+
+int	apply_color_shift(int color, int shift)
+{
+	int	r;
+	int	g;
+	int	b;
+
+	r = (color >> 16) & 0xFF;
+	g = (color >> 8) & 0xFF;
+	b = color & 0xFF;
+	r = (r + shift) % 256;
+	g = (g + shift) % 256;
+	b = (b + shift) % 256;
+	return (r << 16 | g << 8 | b);
 }
