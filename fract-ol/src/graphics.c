@@ -45,8 +45,8 @@ void	render_fractal(t_fractal *fractal)
 {
 	if (fractal->fractal_type == MANDELBROT)
 		mandelbrot_set(fractal);
-	else if (fractal->fractal_type == JULIA)
-		julia_set(fractal);
+	// else if (fractal->fractal_type == JULIA)
+	// 	julia_set(fractal);
 	display_image(fractal);
 }
 

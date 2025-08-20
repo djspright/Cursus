@@ -80,7 +80,7 @@ void	cleanup_exit(t_fractal *fractal)
 		mlx_destroy_window(fractal->mlx, fractal->win);
 	if (fractal->mlx)
 	{
-		mlx_destroy_display(fractal->mlx);
+		// mlx_destroy_display(fractal->mlx);
 		free(fractal->mlx);
 	}
 	exit(0);
