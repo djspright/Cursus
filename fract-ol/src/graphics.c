@@ -6,7 +6,7 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 11:29:22 by shkondo           #+#    #+#             */
-/*   Updated: 2025/08/20 17:18:11 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/08/21 19:57:50 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void	render_fractal(t_fractal *fractal)
 {
 	if (fractal->fractal_type == MANDELBROT)
 		mandelbrot_set(fractal);
-	// else if (fractal->fractal_type == JULIA)
-	// 	julia_set(fractal);
+	else if (fractal->fractal_type == JULIA)
+		julia_set(fractal);
 	display_image(fractal);
 }
 

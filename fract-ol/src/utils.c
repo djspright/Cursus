@@ -6,7 +6,7 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 11:09:31 by shkondo           #+#    #+#             */
-/*   Updated: 2025/08/19 14:31:02 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/08/21 19:53:03 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ void	cleanup_exit(t_fractal *fractal)
 		mlx_destroy_window(fractal->mlx, fractal->win);
 	if (fractal->mlx)
 	{
-		// mlx_destroy_display(fractal->mlx);
 		free(fractal->mlx);
 	}
 	exit(0);
