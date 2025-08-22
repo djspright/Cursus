@@ -19,8 +19,8 @@ int	julia_iterate(t_complex c, int max_iter)
 	iter = 0;
 	while (iter < max_iter)
 	{
-		z = complex_add(complex_mul(z, z), c);
-		if (complex_magnitude(z) > 2.0)
+		c = complex_add(z, complex_mul(c, c));
+		if (complex_magnitude(c) > 2.0)
 			break ;
 		iter++;
 	}
