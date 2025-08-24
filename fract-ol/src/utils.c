@@ -6,7 +6,7 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 11:09:31 by shkondo           #+#    #+#             */
-/*   Updated: 2025/08/21 19:53:03 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/08/24 14:49:45 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,37 +39,6 @@ double	ft_atof(char *str)
 		}
 	}
 	return (result * sign);
-}
-
-double	map_range(double value, double old_min, double old_max, double new_min,
-		double new_max)
-{
-	return ((value - old_min) * (new_max - new_min) / (old_max - old_min)
-		+ new_min);
-}
-
-int	color_interpolate(int start_color, int end_color, double t)
-{
-	int	start_r;
-	int	start_g;
-	int	start_b;
-	int	r;
-	int	g;
-	int	b;
-	int	end_r;
-	int	end_g;
-	int	end_b;
-
-	start_r = (start_color >> 16) & 0xFF;
-	start_g = (start_color >> 8) & 0xFF;
-	start_b = start_color & 0xFF;
-	end_r = (end_color >> 16) & 0xFF;
-	end_g = (end_color >> 8) & 0xFF;
-	end_b = end_color & 0xFF;
-	r = (int)((1 - t) * start_r + t * end_r);
-	g = (int)((1 - t) * start_g + t * end_g);
-	b = (int)((1 - t) * start_b + t * end_b);
-	return (r << 16 | g << 8 | b);
 }
 
 void	cleanup_exit(t_fractal *fractal)

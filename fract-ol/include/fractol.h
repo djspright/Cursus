@@ -6,7 +6,7 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 10:35:59 by shkondo           #+#    #+#             */
-/*   Updated: 2025/08/20 17:16:29 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/08/24 14:50:48 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,11 +100,9 @@ int				apply_color_shift(int color, int shift);
 int				get_color_scheme(int iter, int max_iter, int scheme);
 int				get_shifted_color(int iter, int max_iter, int scheme,
 					int shift);
+int				color_interpolate(int start_color, int end_color, double t);
 
 double			ft_atof(char *str);
-double			map_range(double value, double old_min, double old_max,
-					double new_min, double new_max);
-int				color_interpolate(int start_color, int end_color, double t);
 void			cleanup_exit(t_fractal *fractal);
 void			error_exit(const char *message, t_fractal *fractal);
 

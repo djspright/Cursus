@@ -2,25 +2,22 @@
 
 t_complex	julia_pixel_to_complex(int x, int y, t_fractal *fractal)
 {
-	t_complex	c;
+	t_complex	z;
 
-	c.real = map_range(x, 0, WIDTH, fractal->min.re, fractal->max.re);
-	c.imag = map_range(y, 0, HEIGHT, fractal->min.im, fractal->max.im);
-	return (c);
+	z.real = (x - fractal->width / 2.0) * fractal->zoom + fractal->offset_x;
+	z.imag = (y - fractal->height / 2.0) * fractal->zoom + fractal->offset_y;
+	return (z);
 }
 
-int	julia_iterate(t_complex c, int max_iter)
+int	julia_iterate(t_complex z, t_complex julia_c, int max_iter)
 {
-	t_complex	z;
-	int			iter;
+	int	iter;
 
-	z.real = 0.0;
-	z.imag = 0.0;
 	iter = 0;
 	while (iter < max_iter)
 	{
-		c = complex_add(z, complex_mul(c, c));
-		if (complex_magnitude(c) > 2.0)
+		z = complex_add(complex_mul(z, z), julia_c);
+		if (complex_magnitude(z) > 2.0)
 			break ;
 		iter++;
 	}
@@ -43,7 +40,7 @@ void	julia_set(t_fractal *fractal)
 {
 	int			x;
 	int			y;
-	t_complex	c;
+	t_complex	z;
 	int			iter;
 	int			color;
 
@@ -53,8 +50,8 @@ void	julia_set(t_fractal *fractal)
 		x = 0;
 		while (x < WIDTH)
 		{
-			c = julia_pixel_to_complex(x, y, fractal);
-			iter = julia_iterate(c, fractal->max_iter);
+			z = julia_pixel_to_complex(x, y, fractal);
+			iter = julia_iterate(z, fractal->julia_c, fractal->max_iter);
 			color = julia_color(iter, fractal->max_iter, fractal);
 			put_pixel(fractal, x, y, color);
 			x++;
