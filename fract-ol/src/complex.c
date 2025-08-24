@@ -6,7 +6,7 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 16:12:03 by shkondo           #+#    #+#             */
-/*   Updated: 2025/08/16 17:24:06 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/08/24 15:04:38 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_complex	complex_mul(t_complex a, t_complex b)
 	return (result);
 }
 
-double complex_magnitude(t_complex c)
+double	complex_magnitude(t_complex c)
 {
 	return (sqrt(c.real * c.real + c.imag * c.imag));
 }
