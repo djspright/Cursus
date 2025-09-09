@@ -6,7 +6,7 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 10:28:59 by shkondo           #+#    #+#             */
-/*   Updated: 2025/08/20 17:10:26 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/09/02 20:13:50 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static void	print_usage(void)
 	ft_putstr_fd("Fractals:\n", 1);
 	ft_putstr_fd("  mandelbrot\n", 1);
 	ft_putstr_fd("  julia <real> <imag>\n", 1);
+	ft_putStr_fd("  burning_ship\n", 1);
 }
 
 static int	parse_arguments(int argc, char **argv, t_fractal *fractal)
@@ -34,6 +35,11 @@ static int	parse_arguments(int argc, char **argv, t_fractal *fractal)
 		fractal->fractal_type = JULIA;
 		fractal->julia_c.real = ft_atof(argv[2]);
 		fractal->julia_c.imag = ft_atof(argv[3]);
+		return (1);
+	}
+	else if (ft_strcmp(argv[1], "burning_ship", 12) == 0 && argc == 2)
+	{
+		fractal->fractal_type = BURNING_SHIP;
 		return (1);
 	}
 	return (0);

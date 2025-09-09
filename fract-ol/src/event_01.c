@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   events.c                                           :+:      :+:    :+:   */
+/*   event_01.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 11:39:40 by shkondo           #+#    #+#             */
-/*   Updated: 2025/08/20 17:12:55 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/09/09 20:04:56 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,14 @@ void	setup_hooks(t_fractal *fractal)
 int	handle_keypress(int keycode, t_fractal *fractal)
 {
 	if (keycode == KEY_ESCAPE)
+	{
 		cleanup_exit(fractal);
-	else if (keycode == 99)
-	{
-		fractal->color_scheme = (fractal->color_scheme % 4) + 1;
-		render_fractal(fractal);
+		return (0);
 	}
-	else if (keycode == 115)
-	{
-		fractal->color_shift += 20;
-		if (fractal->color_shift > 255)
-			fractal->color_shift = 0;
-		render_fractal(fractal);
-	}
+	if (handle_arrow_keys(keycode, fractal))
+		return (0);
+	if (handle_color_keys(keycode, fractal))
+		return (0);
 	return (0);
 }
 

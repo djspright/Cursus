@@ -6,7 +6,7 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 10:35:59 by shkondo           #+#    #+#             */
-/*   Updated: 2025/08/24 14:50:48 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/09/09 20:06:51 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,21 @@
 
 # define MANDELBROT 1
 # define JULIA 2
+# define BURNING_SHIP 3
 # define WIDTH 800
 # define HEIGHT 800
 # define MAX_ITER 1000
 
 # define KEY_ESCAPE 65307
-# define KEY_C 99
+# define KEY_LEFT 65361
+# define KEY_UP 65362
+# define KEY_RIGHT 65363
+# define KEY_DOWN 65364
+# define KEY_W 119
+# define KEY_A 97
 # define KEY_S 115
+# define KEY_D 100
+# define KEY_C 99
 # define MOUSE_SCROLL_UP 4
 # define MOUSE_SCROLL_DOWN 5
 
@@ -85,11 +93,19 @@ int				julia_iterate(t_complex z, t_complex c, int max_iter);
 int				julia_color(int iter, int max_iter, t_fractal *fractal);
 void			julia_set(t_fractal *fractal);
 
+t_complex		burning_ship_pixel_to_complex(int x, int y, t_fractal *fractal);
+t_complex		complex_abs_mul(t_complex z);
+int				burning_ship_iterate(t_complex c, int max_iter);
+void			burning_ship_set(t_fractal *fractal);
+
 void			setup_hooks(t_fractal *fractal);
 int				handle_keypress(int keycode, t_fractal *fractal);
 int				handle_mouse(int button, int x, int y, t_fractal *fractal);
 int				handle_zoom(int direction, int x, int y, t_fractal *fractal);
 int				handle_close(t_fractal *fractal);
+
+int				handle_arrow_keys(int keycode, t_fractal *fractal);
+int				handle_color_keys(int keycode, t_fractal *fractal);
 
 int				get_color_basic(int iter, int max_iter);
 int				get_color_ocean(int iter, int max_iter);
