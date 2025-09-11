@@ -6,7 +6,7 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 10:28:59 by shkondo           #+#    #+#             */
-/*   Updated: 2025/09/02 20:13:50 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/09/11 20:28:45 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	print_usage(void)
 	ft_putstr_fd("Fractals:\n", 1);
 	ft_putstr_fd("  mandelbrot\n", 1);
 	ft_putstr_fd("  julia <real> <imag>\n", 1);
-	ft_putStr_fd("  burning_ship\n", 1);
+	ft_putstr_fd("  burning_ship\n", 1);
 }
 
 static int	parse_arguments(int argc, char **argv, t_fractal *fractal)
