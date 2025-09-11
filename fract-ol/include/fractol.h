@@ -6,7 +6,7 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 10:35:59 by shkondo           #+#    #+#             */
-/*   Updated: 2025/09/11 21:46:54 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/09/12 00:02:43 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,12 +110,9 @@ int				get_color_basic(int iter, int max_iter);
 int				get_color_ocean(int iter, int max_iter);
 int				get_color_fire(int iter, int max_iter);
 int				get_color_rainbow(int iter, int max_iter);
-int				apply_color_shift(int color, int shift);
 
 int				get_color_scheme(int iter, int max_iter, int scheme);
-int				get_shifted_color(int iter, int max_iter, int scheme,
-					int shift);
-int				color_interpolate(int start_color, int end_color, double t);
+int				apply_color_shift(int color, int shift);
 
 double			ft_atof(char *str);
 void			cleanup_exit(t_fractal *fractal);
