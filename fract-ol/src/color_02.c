@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color_utils.c                                      :+:      :+:    :+:   */
+/*   color_02.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 16:59:30 by shkondo           #+#    #+#             */
-/*   Updated: 2025/08/23 23:25:54 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/09/11 23:57:46 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,21 @@ int	get_color_scheme(int iter, int max_iter, int scheme)
 	return (get_color_basic(iter, max_iter));
 }
 
+int	apply_color_shift(int color, int shift)
+{
+	int	r;
+	int	g;
+	int	b;
+
+	r = (color >> 16) & 0xFF;
+	g = (color >> 8) & 0xFF;
+	b = color & 0xFF;
+	r = (r + shift) % 256;
+	g = (g + shift) % 256;
+	b = (b + shift) % 256;
+	return (r << 16 | g << 8 | b);
+}
+
 int	get_shifted_color(int iter, int max_iter, int scheme, int shift)
 {
 	int	base_color;
@@ -33,29 +48,4 @@ int	get_shifted_color(int iter, int max_iter, int scheme, int shift)
 	if (shift != 0)
 		base_color = apply_color_shift(base_color, shift);
 	return (base_color);
-}
-
-static int	calculate_rgb_value(int start, int end, double t)
-{
-	return ((int)((1 - t) * start + t * end));
-}
-
-int	color_interpolate(int start_color, int end_color, double t)
-{
-	int	start_r;
-	int	start_g;
-	int	start_b;
-	int	end_rgb[3];
-	int	result;
-
-	start_r = (start_color >> 16) & 0xFF;
-	start_g = (start_color >> 8) & 0xFF;
-	start_b = start_color & 0xFF;
-	end_rgb[0] = (end_color >> 16) & 0xFF;
-	end_rgb[1] = (end_color >> 8) & 0xFF;
-	end_rgb[2] = end_color & 0xFF;
-	result = (calculate_rgb_value(start_r, end_rgb[0], t) << 16)
-		| (calculate_rgb_value(start_g, end_rgb[1], t) << 8)
-		| calculate_rgb_value(start_b, end_rgb[2], t);
-	return (result);
 }

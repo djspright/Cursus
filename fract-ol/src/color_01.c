@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   colors.c                                           :+:      :+:    :+:   */
+/*   color_01.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 11:41:44 by shkondo           #+#    #+#             */
-/*   Updated: 2025/08/20 16:58:30 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/09/11 23:57:56 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,20 +77,5 @@ int	get_color_rainbow(int iter, int max_iter)
 	r = (int)(127 * (1 + sin(cycle)));
 	g = (int)(127 * (1 + sin(cycle + 2.0)));
 	b = (int)(127 * (1 + sin(cycle + 4.0)));
-	return (r << 16 | g << 8 | b);
-}
-
-int	apply_color_shift(int color, int shift)
-{
-	int	r;
-	int	g;
-	int	b;
-
-	r = (color >> 16) & 0xFF;
-	g = (color >> 8) & 0xFF;
-	b = color & 0xFF;
-	r = (r + shift) % 256;
-	g = (g + shift) % 256;
-	b = (b + shift) % 256;
 	return (r << 16 | g << 8 | b);
 }
