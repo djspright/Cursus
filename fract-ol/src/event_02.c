@@ -6,7 +6,7 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 19:35:01 by shkondo           #+#    #+#             */
-/*   Updated: 2025/09/09 20:03:21 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/09/11 22:48:54 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ int	handle_arrow_keys(int keycode, t_fractal *fractal)
 
 	move_step = 0.1 * fractal->zoom;
 	if (keycode == KEY_LEFT)
-		fractal->offset_x -= move_step;
-	else if (keycode == KEY_RIGHT)
 		fractal->offset_x += move_step;
+	else if (keycode == KEY_RIGHT)
+		fractal->offset_x -= move_step;
 	else if (keycode == KEY_UP)
-		fractal->offset_y -= move_step;
-	else if (keycode == KEY_DOWN)
 		fractal->offset_y += move_step;
+	else if (keycode == KEY_DOWN)
+		fractal->offset_y -= move_step;
 	else
 		return (0);
 	render_fractal(fractal);
