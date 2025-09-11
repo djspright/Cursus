@@ -6,7 +6,7 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 20:16:12 by shkondo           #+#    #+#             */
-/*   Updated: 2025/09/02 20:23:51 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/09/11 21:47:22 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,10 @@ int	burning_ship_iterate(t_complex c, int max_iter)
 			break ;
 		iter++;
 	}
+	return (iter);
 }
 
-void	burning_ship_seg(t_fractal *fractal)
+void	burning_ship_set(t_fractal *fractal)
 {
 	int			x;
 	int			y;

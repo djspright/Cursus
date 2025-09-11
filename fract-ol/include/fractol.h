@@ -6,7 +6,7 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 10:35:59 by shkondo           #+#    #+#             */
-/*   Updated: 2025/09/09 20:06:51 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/09/11 21:46:54 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define BURNING_SHIP 3
 # define WIDTH 800
 # define HEIGHT 800
-# define MAX_ITER 1000
+# define MAX_ITER 100
 
 # define KEY_ESCAPE 65307
 # define KEY_LEFT 65361
@@ -81,7 +81,6 @@ void			init_mlx(t_fractal *fractal);
 void			create_image(t_fractal *fractal);
 void			put_pixel(t_fractal *fractal, int x, int y, int color);
 void			render_fractal(t_fractal *fractal);
-void			display_image(t_fractal *fractal);
 
 t_complex		mandelbrot_pixel_to_complex(int x, int y, t_fractal *fractal);
 int				mandelbrot_iterate(t_complex c, int max_iter);
