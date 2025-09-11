@@ -6,7 +6,7 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 10:28:59 by shkondo           #+#    #+#             */
-/*   Updated: 2025/09/11 20:28:45 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/09/11 21:58:08 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	parse_arguments(int argc, char **argv, t_fractal *fractal)
 		fractal->julia_c.imag = ft_atof(argv[3]);
 		return (1);
 	}
-	else if (ft_strcmp(argv[1], "burning_ship", 12) == 0 && argc == 2)
+	else if (ft_strncmp(argv[1], "burning_ship", 12) == 0 && argc == 2)
 	{
 		fractal->fractal_type = BURNING_SHIP;
 		return (1);
