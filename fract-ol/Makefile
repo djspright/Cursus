@@ -6,7 +6,7 @@
 #    By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/14 16:55:38 by shkondo           #+#    #+#              #
-#    Updated: 2025/08/20 17:39:04 by shkondo          ###   ########.fr        #
+#    Updated: 2025/09/13 17:16:59 by shkondo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ UNAME := $(shell uname -s)
 
 NAME = fractol
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -O2
 
 SRCDIR = src
 INCDIR = include
