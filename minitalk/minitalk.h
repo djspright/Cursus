@@ -6,7 +6,7 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 22:38:01 by shkondo           #+#    #+#             */
-/*   Updated: 2025/09/13 22:51:12 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/09/18 20:19:51 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <signal.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <sys/types.h>
+# include <limits.h>
 
 # define ERR_ARGS "Usage: ./client <server_pid> <message>\n"
 # define ERR_PID "Invalid PID\n"

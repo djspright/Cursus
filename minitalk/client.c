@@ -6,7 +6,7 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 22:38:23 by shkondo           #+#    #+#             */
-/*   Updated: 2025/09/13 22:39:58 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/09/18 20:20:12 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	send_char(pid_t pid, char c)
 			if (kill(pid, SIGUSR2) == -1)
 				error_exit(ERR_KILL);
 		}
-		usleep(200);
+		usleep(1000);
 		i--;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 22:38:29 by shkondo           #+#    #+#             */
-/*   Updated: 2025/09/13 22:40:02 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/09/18 20:29:27 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	error_exit(char *msg)
 
 int	ft_atoi_pid(const char *str)
 {
-	int	result;
-	int	i;
+	long	result;
+	int		i;
 
 	result = 0;
 	i = 0;
@@ -30,9 +30,11 @@ int	ft_atoi_pid(const char *str)
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		result = result * 10 + (str[i] - '0');
+		if (result > INT_MAX)
+			return (-1);
 		i++;
 	}
 	if (str[i] != '\0' || result <= 0)
 		return (-1);
-	return (result);
+	return ((int)result);
 }
