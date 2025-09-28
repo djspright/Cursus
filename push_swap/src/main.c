@@ -16,9 +16,9 @@ static void	choose_sort_algorithm(t_data *data)
 {
 	if (is_sorted(data->a))
 		return ;
-	if (data->a->top <= 3)
+	if (data->a->size <= 3)
 		sort_three(data);
-	else if (data->a->top <= 100)
+	else if (data->a->size <= 100)
 		sort_small(data);
 	else
 		sort_large(data);
