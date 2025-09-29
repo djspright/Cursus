@@ -1,52 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rotate.c                                           :+:      :+:    :+:   */
+/*   list_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/28 19:02:00 by shkondo           #+#    #+#             */
-/*   Updated: 2025/09/28 20:22:59 by shkondo          ###   ########.fr       */
+/*   Created: 2025/09/29 10:00:00 by shkondo           #+#    #+#             */
+/*   Updated: 2025/09/29 10:00:00 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	rotate_stack(t_stack *stack)
+static void	swap_stack(t_stack *stack)
 {
 	int	temp;
-	int	i;
 
-	if (stack->top < 1)
+	if (!stack || !stack->head || stack->size < 2)
 		return ;
-	temp = stack->array[stack->top];
-	i = stack->top;
-	while (i > 0)
-	{
-		stack->array[i] = stack->array[i - 1];
-		i--;
-	}
-	stack->array[0] = temp;
+	temp = stack->head->next->value;
+	stack->head->next->value = stack->head->next->next->value;
+	stack->head->next->next->value = temp;
 }
 
-void	ra(t_data *data, int print)
+void	sa(t_data *data, int print)
 {
-	rotate_stack(data->a);
+	swap_stack(data->a);
 	if (print)
-		ft_putstr_fd("ra\n", 1);
+		ft_putstr_fd("sa\n", 1);
 }
 
-void	rb(t_data *data, int print)
+void	sb(t_data *data, int print)
 {
-	rotate_stack(data->b);
+	swap_stack(data->b);
 	if (print)
-		ft_putstr_fd("rb\n", 1);
+		ft_putstr_fd("sb\n", 1);
 }
 
-void	rr(t_data *data, int print)
+void	ss(t_data *data, int print)
 {
-	rotate_stack(data->a);
-	rotate_stack(data->b);
+	swap_stack(data->a);
+	swap_stack(data->b);
 	if (print)
-		ft_putstr_fd("rr\n", 1);
+		ft_putstr_fd("ss\n", 1);
 }

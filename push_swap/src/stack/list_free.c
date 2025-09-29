@@ -1,35 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push.c                                             :+:      :+:    :+:   */
+/*   list_free.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/28 19:01:00 by shkondo           #+#    #+#             */
-/*   Updated: 2025/09/28 20:22:15 by shkondo          ###   ########.fr       */
+/*   Created: 2025/09/29 10:00:00 by shkondo           #+#    #+#             */
+/*   Updated: 2025/09/29 10:00:00 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	pa(t_data *data, int print)
+void	stack_free(t_stack *stack)
 {
-	if (data->b->top < 0)
+	t_node	*current;
+	t_node	*next;
+
+	if (!stack || !stack->head)
 		return ;
-	data->a->top++;
-	data->a->array[data->a->top] = data->b->array[data->b->top];
-	data->b->top--;
-	if (print)
-		ft_putstr_fd("pa\n", 1);
+	current = stack->head->next;
+	while (current != stack->head)
+	{
+		next = current->next;
+		free(current);
+		current = next;
+	}
+	free(stack->head);
+	free(stack);
 }
 
-void	pb(t_data *data, int print)
+void	free_data(t_data *data)
 {
-	if (data->a->top < 0)
+	if (!data)
 		return ;
-	data->b->top++;
-	data->b->array[data->b->top] = data->a->array[data->a->top];
-	data->a->top--;
-	if (print)
-		ft_putstr_fd("pb\n", 1);
+	if (data->a)
+		stack_free(data->a);
+	if (data->b)
+		stack_free(data->b);
+	free(data);
 }

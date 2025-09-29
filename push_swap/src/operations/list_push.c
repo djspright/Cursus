@@ -1,35 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push.c                                             :+:      :+:    :+:   */
+/*   list_push.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/28 19:01:00 by shkondo           #+#    #+#             */
-/*   Updated: 2025/09/28 20:22:15 by shkondo          ###   ########.fr       */
+/*   Created: 2025/09/29 10:00:00 by shkondo           #+#    #+#             */
+/*   Updated: 2025/09/29 10:00:00 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+static void	push_stack(t_stack *from, t_stack *to)
+{
+	t_node	*to_move;
+
+	if (!from || !to || !from->head || !to->head || from->size == 0)
+		return ;
+	to_move = from->head->next;
+	from->head->next = to_move->next;
+	to_move->next->prev = from->head;
+	from->size--;
+	to_move->next = to->head->next;
+	to_move->prev = to->head;
+	to->head->next->prev = to_move;
+	to->head->next = to_move;
+	to->size++;
+}
+
 void	pa(t_data *data, int print)
 {
-	if (data->b->top < 0)
-		return ;
-	data->a->top++;
-	data->a->array[data->a->top] = data->b->array[data->b->top];
-	data->b->top--;
+	push_stack(data->b, data->a);
 	if (print)
 		ft_putstr_fd("pa\n", 1);
 }
 
 void	pb(t_data *data, int print)
 {
-	if (data->a->top < 0)
-		return ;
-	data->b->top++;
-	data->b->array[data->b->top] = data->a->array[data->a->top];
-	data->a->top--;
+	push_stack(data->a, data->b);
 	if (print)
 		ft_putstr_fd("pb\n", 1);
 }

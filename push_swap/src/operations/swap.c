@@ -6,7 +6,7 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 19:00:00 by shkondo           #+#    #+#             */
-/*   Updated: 2025/09/28 19:00:00 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/09/28 20:23:05 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,12 @@
 static void	swap_stack(t_stack *stack)
 {
 	int	temp;
-	int	first_pos;
-	int	second_pos;
 
-	if (stack->size < 2)
+	if (stack->top < 1)
 		return ;
-	first_pos = stack->head;
-	second_pos = (stack->head + 1) % stack->capacity;
-	temp = stack->array[first_pos];
-	stack->array[first_pos] = stack->array[second_pos];
-	stack->array[second_pos] = temp;
+	temp = stack->array[stack->top];
+	stack->array[stack->top] = stack->array[stack->top - 1];
+	stack->array[stack->top - 1] = temp;
 }
 
 void	sa(t_data *data, int print)

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   reverse_rotate.c                                   :+:      :+:    :+:   */
+/*   list_reverse_rotate.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/28 19:03:00 by shkondo           #+#    #+#             */
-/*   Updated: 2025/09/28 20:23:13 by shkondo          ###   ########.fr       */
+/*   Created: 2025/09/29 10:00:00 by shkondo           #+#    #+#             */
+/*   Updated: 2025/09/29 10:00:00 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,17 @@
 
 static void	reverse_rotate_stack(t_stack *stack)
 {
-	int	temp;
-	int	i;
+	t_node	*last;
 
-	if (stack->top < 1)
+	if (!stack || !stack->head || stack->size < 2)
 		return ;
-	temp = stack->array[0];
-	i = 0;
-	while (i < stack->top)
-	{
-		stack->array[i] = stack->array[i + 1];
-		i++;
-	}
-	stack->array[stack->top] = temp;
+	last = stack->head->prev;
+	stack->head->prev = last->prev;
+	last->prev->next = stack->head;
+	last->next = stack->head->next;
+	last->prev = stack->head;
+	stack->head->next->prev = last;
+	stack->head->next = last;
 }
 
 void	rra(t_data *data, int print)

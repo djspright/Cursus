@@ -8,29 +8,36 @@ SRCDIR = src
 INCDIR = includes
 
 SRCS = $(SRCDIR)/main.c \
-       $(SRCDIR)/algorithms/small_sort.c \
-       $(SRCDIR)/algorithms/compress.c \
-       $(SRCDIR)/algorithms/radix_sort.c \
+       $(SRCDIR)/algorithms/list_small_sort.c \
+       $(SRCDIR)/algorithms/list_sort_utils.c \
+       $(SRCDIR)/algorithms/list_optimized_quick.c \
+       $(SRCDIR)/algorithms/list_improved_quick.c \
        $(SRCDIR)/parser/input_check.c \
-       $(SRCDIR)/parser/error.c \
-       $(SRCDIR)/operations/rotate.c \
-       $(SRCDIR)/operations/push.c \
-       $(SRCDIR)/operations/reverse_rotate.c \
-       $(SRCDIR)/operations/swap.c \
-       $(SRCDIR)/stack/stack_init.c \
-       $(SRCDIR)/stack/stack_utils.c \
-       $(SRCDIR)/stack/stack_free.c
+       $(SRCDIR)/parser/list_parser.c \
+       $(SRCDIR)/operations/list_rotate.c \
+       $(SRCDIR)/operations/list_push.c \
+       $(SRCDIR)/operations/list_reverse_rotate.c \
+       $(SRCDIR)/operations/list_swap.c \
+       $(SRCDIR)/stack/list_init.c \
+       $(SRCDIR)/stack/list_operations.c \
+       $(SRCDIR)/stack/list_utils.c \
+       $(SRCDIR)/stack/list_free.c \
+       $(SRCDIR)/utils/utils.c
 
 BONUS_SRCS = $(SRCDIR)/checker_bonus.c \
+             $(SRCDIR)/checker/input_reader_bonus.c \
+             $(SRCDIR)/checker/operation_executor_bonus.c \
              $(SRCDIR)/parser/input_check.c \
-             $(SRCDIR)/parser/error.c \
-             $(SRCDIR)/operations/rotate.c \
-             $(SRCDIR)/operations/push.c \
-             $(SRCDIR)/operations/reverse_rotate.c \
-             $(SRCDIR)/operations/swap.c \
-             $(SRCDIR)/stack/stack_init.c \
-             $(SRCDIR)/stack/stack_utils.c \
-             $(SRCDIR)/stack/stack_free.c
+             $(SRCDIR)/parser/list_parser.c \
+             $(SRCDIR)/operations/list_rotate.c \
+             $(SRCDIR)/operations/list_push.c \
+             $(SRCDIR)/operations/list_reverse_rotate.c \
+             $(SRCDIR)/operations/list_swap.c \
+             $(SRCDIR)/stack/list_init.c \
+             $(SRCDIR)/stack/list_operations.c \
+             $(SRCDIR)/stack/list_utils.c \
+             $(SRCDIR)/stack/list_free.c \
+             $(SRCDIR)/utils/utils.c
 
 OBJS = $(SRCS:.c=.o)
 BONUS_OBJS = $(BONUS_SRCS:.c=.o)

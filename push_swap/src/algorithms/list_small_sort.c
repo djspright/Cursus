@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   small_sort.c                                       :+:      :+:    :+:   */
+/*   list_small_sort.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/28 19:06:00 by shkondo           #+#    #+#             */
-/*   Updated: 2025/09/28 20:25:32 by shkondo          ###   ########.fr       */
+/*   Created: 2025/09/29 10:30:00 by shkondo           #+#    #+#             */
+/*   Updated: 2025/09/29 10:30:00 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static void	sort_two(t_data *data)
 {
-	if (data->a->top < 1)
+	if (data->a->size < 2)
 		return ;
-	if (data->a->array[data->a->top] > data->a->array[data->a->top - 1])
+	if (get_at_index(data->a, 0) > get_at_index(data->a, 1))
 		sa(data, 1);
 }
 
@@ -46,16 +46,16 @@ void	sort_three(t_data *data)
 	int	second;
 	int	third;
 
-	if (data->a->top < 1)
+	if (data->a->size < 2)
 		return ;
-	if (data->a->top == 1)
+	if (data->a->size == 2)
 	{
 		sort_two(data);
 		return ;
 	}
-	first = data->a->array[data->a->top];
-	second = data->a->array[data->a->top - 1];
-	third = data->a->array[data->a->top - 2];
+	first = get_at_index(data->a, 0);
+	second = get_at_index(data->a, 1);
+	third = get_at_index(data->a, 2);
 	sort_three_cases(data, first, second, third);
 }
 
@@ -65,13 +65,13 @@ void	sort_small(t_data *data)
 
 	if (is_sorted(data->a))
 		return ;
-	if (data->a->top == 3)
+	if (data->a->size == 4)
 		sort_four(data);
-	else if (data->a->top == 4)
+	else if (data->a->size == 5)
 		sort_five_optimized(data);
 	else
 	{
-		while (data->a->top > 2 && !is_sorted(data->a))
+		while (data->a->size > 3 && !is_sorted(data->a))
 		{
 			min_idx = find_min_index(data->a);
 			rotate_to_top(data, min_idx);
@@ -79,7 +79,7 @@ void	sort_small(t_data *data)
 		}
 		if (!is_sorted(data->a))
 			sort_three(data);
-		while (data->b->top >= 0)
+		while (data->b->size > 0)
 			pa(data, 1);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 23:38:02 by shkondo           #+#    #+#             */
-/*   Updated: 2025/09/21 23:38:21 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/09/28 19:47:01 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@ static void	choose_sort_algorithm(t_data *data)
 		return ;
 	if (data->a->size <= 3)
 		sort_three(data);
-	else if (data->a->size <= 100)
+	else if (data->a->size <= 5)
 		sort_small(data);
 	else
-		sort_large(data);
+		improved_quick_sort(data);
 }
 
 int	main(int argc, char **argv)
 {
-	t_data *data;
+	t_data	*data;
 
 	if (argc < 2)
 		return (0);

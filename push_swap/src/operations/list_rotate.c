@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rotate.c                                           :+:      :+:    :+:   */
+/*   list_rotate.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/28 19:02:00 by shkondo           #+#    #+#             */
-/*   Updated: 2025/09/28 20:22:59 by shkondo          ###   ########.fr       */
+/*   Created: 2025/09/29 10:00:00 by shkondo           #+#    #+#             */
+/*   Updated: 2025/09/29 10:00:00 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,17 @@
 
 static void	rotate_stack(t_stack *stack)
 {
-	int	temp;
-	int	i;
+	t_node	*first;
 
-	if (stack->top < 1)
+	if (!stack || !stack->head || stack->size < 2)
 		return ;
-	temp = stack->array[stack->top];
-	i = stack->top;
-	while (i > 0)
-	{
-		stack->array[i] = stack->array[i - 1];
-		i--;
-	}
-	stack->array[0] = temp;
+	first = stack->head->next;
+	stack->head->next = first->next;
+	first->next->prev = stack->head;
+	first->prev = stack->head->prev;
+	first->next = stack->head;
+	stack->head->prev->next = first;
+	stack->head->prev = first;
 }
 
 void	ra(t_data *data, int print)
