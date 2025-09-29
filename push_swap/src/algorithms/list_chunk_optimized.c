@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list_improved_quick.c                              :+:      :+:    :+:   */
+/*   list_chunk_optimized.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,27 +12,24 @@
 
 #include "push_swap.h"
 
-static void	push_to_b_chunks(t_data *data, int chunk_size)
+static void	push_chunks(t_data *data, int chunk_size)
 {
-	int	pushed;
-	int	chunk_start;
+	int	chunk;
 	int	rotations;
 	int	value;
 
-	pushed = 0;
-	chunk_start = 0;
-	while (pushed < data->total_size - 3 && data->a->size > 3)
+	chunk = 0;
+	while (data->a->size > 3)
 	{
 		rotations = 0;
 		while (rotations < data->a->size && data->a->size > 3)
 		{
 			value = get_at_index(data->a, 0);
-			if (value >= chunk_start && value < chunk_start + chunk_size)
+			if (value >= chunk * chunk_size && value < (chunk + 1) * chunk_size)
 			{
 				pb(data, 1);
-				if (value >= chunk_start + chunk_size / 2)
+				if (value < chunk * chunk_size + chunk_size / 2)
 					rb(data, 1);
-				pushed++;
 				rotations = 0;
 			}
 			else
@@ -42,16 +39,16 @@ static void	push_to_b_chunks(t_data *data, int chunk_size)
 			}
 		}
 		if (rotations >= data->a->size)
-			chunk_start += chunk_size;
+			chunk++;
 	}
 }
 
-static int	find_max_position(t_data *data)
+static int	get_max_pos(t_data *data)
 {
-	int	i;
 	int	max_pos;
 	int	max_val;
-	int	current;
+	int	i;
+	int	val;
 
 	if (data->b->size == 0)
 		return (-1);
@@ -60,10 +57,10 @@ static int	find_max_position(t_data *data)
 	i = 1;
 	while (i < data->b->size)
 	{
-		current = get_at_index(data->b, i);
-		if (current > max_val)
+		val = get_at_index(data->b, i);
+		if (val > max_val)
 		{
-			max_val = current;
+			max_val = val;
 			max_pos = i;
 		}
 		i++;
@@ -71,15 +68,15 @@ static int	find_max_position(t_data *data)
 	return (max_pos);
 }
 
-static void	push_back_from_b(t_data *data)
+static void	push_back_sorted(t_data *data)
 {
 	int	pos;
 
 	while (data->b->size > 0)
 	{
-		pos = find_max_position(data);
+		pos = get_max_pos(data);
 		if (pos == -1)
-			break ;
+			break;
 		if (pos <= data->b->size / 2)
 		{
 			while (pos-- > 0)
@@ -95,7 +92,7 @@ static void	push_back_from_b(t_data *data)
 	}
 }
 
-void	improved_quick_sort(t_data *data)
+void	chunk_optimized_sort(t_data *data)
 {
 	int	chunk_size;
 
@@ -103,11 +100,11 @@ void	improved_quick_sort(t_data *data)
 	if (data->total_size <= 100)
 		chunk_size = 20;
 	else if (data->total_size <= 500)
-		chunk_size = 45;
+		chunk_size = 47;
 	else
 		chunk_size = 70;
-	push_to_b_chunks(data, chunk_size);
+	push_chunks(data, chunk_size);
 	if (data->a->size <= 3)
 		sort_three(data);
-	push_back_from_b(data);
+	push_back_sorted(data);
 }
