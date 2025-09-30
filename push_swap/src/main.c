@@ -21,7 +21,7 @@ static void	choose_sort_algorithm(t_data *data)
 	else if (data->a->size <= 5)
 		sort_small(data);
 	else
-		chunk_optimized_sort(data);
+		improved_quick_sort(data);
 }
 
 int	main(int argc, char **argv)

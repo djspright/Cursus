@@ -62,6 +62,7 @@ void		optimized_quick_sort(t_data *data);
 void		improved_quick_sort(t_data *data);
 void		turk_sort(t_data *data);
 void		chunk_optimized_sort(t_data *data);
+void		final_sort(t_data *data);
 void		recursive_quick_sort(t_data *data);
 void		handle_small_a(t_data *data, int size);
 void		handle_small_b(t_data *data, int size);

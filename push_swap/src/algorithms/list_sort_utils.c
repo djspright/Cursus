@@ -83,39 +83,59 @@ static void	bubble_sort(int *arr, int size)
 	}
 }
 
-void	compress_values(t_data *data)
+static void	apply_compression(t_data *data, int *sorted, int *original)
 {
-	int		*sorted_arr;
 	t_node	*current;
 	int		i;
 	int		j;
 
-	sorted_arr = malloc(sizeof(int) * data->total_size);
-	if (!sorted_arr)
-		return ;
 	current = data->a->head->next;
 	i = 0;
-	while (current != data->a->head)
-	{
-		sorted_arr[i] = current->value;
-		current = current->next;
-		i++;
-	}
-	bubble_sort(sorted_arr, data->total_size);
-	current = data->a->head->next;
 	while (current != data->a->head)
 	{
 		j = 0;
 		while (j < data->total_size)
 		{
-			if (current->value == sorted_arr[j])
+			if (original[i] == sorted[j])
 			{
 				current->value = j;
+				sorted[j] = -2147483648;
 				break ;
 			}
 			j++;
 		}
 		current = current->next;
+		i++;
 	}
+}
+
+void	compress_values(t_data *data)
+{
+	int		*sorted_arr;
+	int		*original_arr;
+	t_node	*current;
+	int		i;
+
+	sorted_arr = malloc(sizeof(int) * data->total_size);
+	if (!sorted_arr)
+		return ;
+	original_arr = malloc(sizeof(int) * data->total_size);
+	if (!original_arr)
+	{
+		free(sorted_arr);
+		return ;
+	}
+	current = data->a->head->next;
+	i = 0;
+	while (current != data->a->head)
+	{
+		sorted_arr[i] = current->value;
+		original_arr[i] = current->value;
+		current = current->next;
+		i++;
+	}
+	bubble_sort(sorted_arr, data->total_size);
+	apply_compression(data, sorted_arr, original_arr);
 	free(sorted_arr);
+	free(original_arr);
 }
