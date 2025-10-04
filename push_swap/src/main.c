@@ -18,10 +18,8 @@ static void	choose_sort_algorithm(t_data *data)
 		return ;
 	if (data->a->size <= 3)
 		sort_three(data);
-	else if (data->a->size <= 5)
-		sort_small(data);
 	else
-		improved_quick_sort(data);
+		turk_sort(data);
 }
 
 int	main(int argc, char **argv)

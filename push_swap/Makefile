@@ -8,13 +8,10 @@ SRCDIR = src
 INCDIR = includes
 
 SRCS = $(SRCDIR)/main.c \
-       $(SRCDIR)/algorithms/list_small_sort.c \
-       $(SRCDIR)/algorithms/list_sort_utils.c \
-       $(SRCDIR)/algorithms/list_optimized_quick.c \
-       $(SRCDIR)/algorithms/list_improved_quick.c \
-       $(SRCDIR)/algorithms/list_turk_sort.c \
-       $(SRCDIR)/algorithms/list_chunk_optimized.c \
-       $(SRCDIR)/algorithms/list_final_sort.c \
+       $(SRCDIR)/algorithms/small_sort.c \
+       $(SRCDIR)/algorithms/sort_utils.c \
+       $(SRCDIR)/algorithms/turk_helpers.c \
+       $(SRCDIR)/algorithms/turk_algorithm.c \
        $(SRCDIR)/parser/input_check.c \
        $(SRCDIR)/parser/list_parser.c \
        $(SRCDIR)/operations/list_rotate.c \

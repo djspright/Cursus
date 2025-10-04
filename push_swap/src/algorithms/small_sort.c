@@ -58,28 +58,3 @@ void	sort_three(t_data *data)
 	third = get_at_index(data->a, 2);
 	sort_three_cases(data, first, second, third);
 }
-
-void	sort_small(t_data *data)
-{
-	int	min_idx;
-
-	if (is_sorted(data->a))
-		return ;
-	if (data->a->size == 4)
-		sort_four(data);
-	else if (data->a->size == 5)
-		sort_five_optimized(data);
-	else
-	{
-		while (data->a->size > 3 && !is_sorted(data->a))
-		{
-			min_idx = find_min_index(data->a);
-			rotate_to_top(data, min_idx);
-			pb(data, 1);
-		}
-		if (!is_sorted(data->a))
-			sort_three(data);
-		while (data->b->size > 0)
-			pa(data, 1);
-	}
-}
