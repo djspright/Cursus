@@ -10,8 +10,12 @@ INCDIR = includes
 SRCS = $(SRCDIR)/main.c \
        $(SRCDIR)/algorithms/small_sort.c \
        $(SRCDIR)/algorithms/sort_utils.c \
+       $(SRCDIR)/algorithms/compress.c \
        $(SRCDIR)/algorithms/turk_helpers.c \
        $(SRCDIR)/algorithms/turk_algorithm.c \
+       $(SRCDIR)/algorithms/turk_cost.c \
+       $(SRCDIR)/algorithms/turk_rotate.c \
+       $(SRCDIR)/algorithms/turk_execute.c \
        $(SRCDIR)/parser/input_check.c \
        $(SRCDIR)/parser/list_parser.c \
        $(SRCDIR)/operations/list_rotate.c \
@@ -21,6 +25,7 @@ SRCS = $(SRCDIR)/main.c \
        $(SRCDIR)/stack/list_init.c \
        $(SRCDIR)/stack/list_operations.c \
        $(SRCDIR)/stack/list_utils.c \
+       $(SRCDIR)/stack/list_search.c \
        $(SRCDIR)/stack/list_free.c \
        $(SRCDIR)/utils/utils.c
 
@@ -36,6 +41,7 @@ BONUS_SRCS = $(SRCDIR)/checker_bonus.c \
              $(SRCDIR)/stack/list_init.c \
              $(SRCDIR)/stack/list_operations.c \
              $(SRCDIR)/stack/list_utils.c \
+             $(SRCDIR)/stack/list_search.c \
              $(SRCDIR)/stack/list_free.c \
              $(SRCDIR)/utils/utils.c
 

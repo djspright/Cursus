@@ -1,42 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list_free.c                                        :+:      :+:    :+:   */
+/*   turk_rotate.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/29 10:00:00 by shkondo           #+#    #+#             */
-/*   Updated: 2025/10/05 22:00:53 by shkondo          ###   ########.fr       */
+/*   Created: 2025/09/30 10:00:00 by shkondo           #+#    #+#             */
+/*   Updated: 2025/10/05 21:57:50 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	stack_free(t_stack *stack)
-{
-	t_node	*current;
-	t_node	*next;
+int		get_rotation_cost(int pos, int size);
 
-	if (!stack || !stack->head)
-		return ;
-	current = stack->head->next;
-	while (current != stack->head)
+void	final_rotate(t_data *data)
+{
+	int	min_pos;
+	int	cost;
+
+	min_pos = find_min_index(data->a);
+	cost = get_rotation_cost(min_pos, data->a->size);
+	while (cost > 0)
 	{
-		next = current->next;
-		free(current);
-		current = next;
+		ra(data, 1);
+		cost--;
 	}
-	free(stack->head);
-	free(stack);
-}
-
-void	free_data(t_data *data)
-{
-	if (!data)
-		return ;
-	if (data->a)
-		stack_free(data->a);
-	if (data->b)
-		stack_free(data->b);
-	free(data);
+	while (cost < 0)
+	{
+		rra(data, 1);
+		cost++;
+	}
 }

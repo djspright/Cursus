@@ -6,7 +6,7 @@
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 10:00:00 by shkondo           #+#    #+#             */
-/*   Updated: 2025/09/29 10:00:00 by shkondo          ###   ########.fr       */
+/*   Updated: 2025/10/05 22:02:58 by shkondo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,44 +78,4 @@ int	find_max_index(t_stack *stack)
 		i++;
 	}
 	return (max_idx);
-}
-
-int	find_second_min_index(t_stack *stack)
-{
-	int		min_val;
-	int		second_min_val;
-	t_node	*current;
-	int		idx;
-	int		i;
-
-	if (!stack || !stack->head || stack->size < 2)
-		return (-1);
-	min_val = stack->head->next->value;
-	second_min_val = INT_MAX;
-	current = stack->head->next;
-	while (current != stack->head)
-	{
-		if (current->value < min_val)
-		{
-			second_min_val = min_val;
-			min_val = current->value;
-		}
-		else if (current->value < second_min_val && current->value != min_val)
-			second_min_val = current->value;
-		current = current->next;
-	}
-	current = stack->head->next;
-	idx = -1;
-	i = 0;
-	while (current != stack->head)
-	{
-		if (current->value == second_min_val)
-		{
-			idx = i;
-			break ;
-		}
-		current = current->next;
-		i++;
-	}
-	return (idx);
 }
