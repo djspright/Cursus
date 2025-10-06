@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_check.c                                      :+:      :+:    :+:   */
+/*   overflow_check.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shkondo <shkondo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,55 +11,35 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include <limits.h>
 
-int	check_int_overflow(const char *str);
-
-static int	is_valid_number(const char *str)
+static int	get_sign(const char *str)
 {
-	int	i;
+	if (*str == '-')
+		return (-1);
+	return (1);
+}
 
+int	check_int_overflow(const char *str)
+{
+	long	result;
+	int		sign;
+	int		i;
+
+	result = 0;
+	sign = 1;
 	i = 0;
-	if (str[i] == '+' || str[i] == '-')
+	if (str[i] == '-' || str[i] == '+')
+	{
+		sign = get_sign(&str[i]);
 		i++;
-	if (str[i] == '\0')
-		return (0);
+	}
 	while (str[i])
 	{
-		if (str[i] < '0' || str[i] > '9')
+		result = result * 10 + (str[i] - '0');
+		if (sign == 1 && result > INT_MAX)
 			return (0);
-		i++;
-	}
-	return (check_int_overflow(str));
-}
-
-int	has_duplicates(int *array, int size)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < size)
-	{
-		j = i + 1;
-		while (j < size)
-		{
-			if (array[i] == array[j])
-				return (1);
-			j++;
-		}
-		i++;
-	}
-	return (0);
-}
-
-int	validate_args(int argc, char **argv)
-{
-	int	i;
-
-	i = 1;
-	while (i < argc)
-	{
-		if (!is_valid_number(argv[i]))
+		if (sign == -1 && result > (long)INT_MAX + 1)
 			return (0);
 		i++;
 	}

@@ -17,6 +17,7 @@ SRCS = $(SRCDIR)/main.c \
        $(SRCDIR)/algorithms/turk_rotate.c \
        $(SRCDIR)/algorithms/turk_execute.c \
        $(SRCDIR)/parser/input_check.c \
+       $(SRCDIR)/parser/overflow_check.c \
        $(SRCDIR)/parser/list_parser.c \
        $(SRCDIR)/operations/list_rotate.c \
        $(SRCDIR)/operations/list_push.c \
@@ -33,6 +34,7 @@ BONUS_SRCS = $(SRCDIR)/checker_bonus.c \
              $(SRCDIR)/checker/input_reader_bonus.c \
              $(SRCDIR)/checker/operation_executor_bonus.c \
              $(SRCDIR)/parser/input_check.c \
+             $(SRCDIR)/parser/overflow_check.c \
              $(SRCDIR)/parser/list_parser.c \
              $(SRCDIR)/operations/list_rotate.c \
              $(SRCDIR)/operations/list_push.c \
