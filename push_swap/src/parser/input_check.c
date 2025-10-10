@@ -12,8 +12,6 @@
 
 #include "push_swap.h"
 
-int	check_int_overflow(const char *str);
-
 static int	is_valid_number(const char *str)
 {
 	int	i;

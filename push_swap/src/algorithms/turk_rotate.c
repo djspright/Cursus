@@ -12,8 +12,6 @@
 
 #include "push_swap.h"
 
-int		get_rotation_cost(int pos, int size);
-
 void	final_rotate(t_data *data)
 {
 	int	min_pos;

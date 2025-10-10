@@ -12,14 +12,6 @@
 
 #include "push_swap.h"
 
-int			get_rotation_cost(int pos, int size);
-int			find_target_pos(t_data *data, int value);
-int			calculate_total_cost(int cost_a, int cost_b);
-void		execute_double_rotation(t_data *data, int cost_a, int cost_b);
-void		update_cache(t_data *data, int *min_val, int *min_pos);
-int			find_target_cached(t_data *data, int value, int min_pos);
-void		final_rotate(t_data *data);
-
 static void	push_to_b(t_data *data)
 {
 	pb(data, 1);
